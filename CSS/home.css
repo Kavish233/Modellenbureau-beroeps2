@@ -1,6 +1,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    background-color: #B19145;
 }
 
 header {
@@ -37,7 +38,7 @@ header {
 }
 
 .hero-image {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/Header.png");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../IMG/Header.png");
     height: 50vh;
     min-height: 400px;
     background-position: center;
@@ -69,4 +70,207 @@ header {
 .hero-text button:hover {
     background-color: #555;
     color: white;
+}
+
+.cards-section {
+    padding: 60px 20px;
+}
+
+.cards-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    background-color: white;
+    width: 250px;
+    border-radius: 10px;
+    text-align: center;
+    padding: 30px 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+
+.card-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 15px auto;
+    display: block;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.4;
+}
+
+
+@media (max-width: 900px) {
+    .cards-container {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 700px) {
+    .cards-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+}
+/* ===================== */
+/* LONG CARDS SECTION     */
+/* ===================== */
+
+.long-cards-section {
+    padding: 50px 40px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 40px;
+    font-weight: bold;
+    color: white;
+}
+
+
+.long-cards-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 kaarten per rij */
+    gap: 50px; /* ruimte tussen kaarten */
+}
+
+.long-card {
+    display: flex;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.long-card-img {
+    margin: 15px;
+    padding: 12px;
+    width: auto;
+    height: 100px;
+    object-fit: cover;
+}
+
+.long-card-text {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.long-card-text h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.long-card-text p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.4;
+}
+
+@media (max-width: 900px) {
+    .long-cards-container {
+        grid-template-columns: 1fr; /* kaarten onder elkaar op tablet/mobiel */
+    }
+
+    .long-card {
+        flex-direction: column; /* afbeelding boven tekst */
+        align-items: center;
+        text-align: center;
+    }
+
+    .long-card-img {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .long-card-text {
+        padding: 15px;
+    }
+}
+
+.site-footer {
+    background-color: #222;       /* donkergrijze achtergrond */
+    color: #f5f5f5;               /* lichte tekst */
+    padding: 40px 20px 20px 20px;
+    font-family: sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1 1 200px;
+}
+
+.footer-section h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.footer-section p,
+.footer-section a {
+    font-size: 0.95rem;
+    color: #f5f5f5;
+    text-decoration: none;
+    line-height: 1.5;
+}
+
+.footer-section a:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.85rem;
+    border-top: 1px solid #444;
+    padding-top: 15px;
+    color: #ccc;
+}
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-section {
+        margin-bottom: 20px;
+    }
 }

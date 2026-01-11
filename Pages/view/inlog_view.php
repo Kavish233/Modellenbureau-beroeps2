@@ -30,7 +30,7 @@
 
         <p class="register-link">
             Nog geen account?
-            <a href="register.php">Registreer hier</a>
+            <a href="registreren.php">Registreer hier</a>
         </p>
     </div>
 </div>

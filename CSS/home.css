@@ -1,10 +1,12 @@
 .hero {
     width: 100%;
-    padding: 0;
 }
 
 .hero-image {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../IMG/Header.png");
+    background-image: linear-gradient(
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.5)
+    ), url("../IMG/Header.png");
     height: 50vh;
     min-height: 400px;
     background-position: center;
@@ -12,231 +14,172 @@
     background-size: cover;
     position: relative;
 }
-
-.hero-text {
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-}
-
-.hero-text button {
-    border: none;
-    outline: 0;
-    display: inline-block;
-    padding: 10px 25px;
-    color: black;
-    background-color: #ddd;
-    text-align: center;
-    cursor: pointer;
-}
-
-.hero-text button:hover {
-    background-color: #555;
-    color: white;
-}
-
 .cards-section {
     padding: 60px 20px;
 }
-
 .cards-container {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
 }
-
 .card {
     background-color: white;
-    width: 250px;
-    border-radius: 10px;
+    width: 260px;
+    border-radius: 12px;
     text-align: center;
     padding: 30px 20px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: transform 0.2s, box-shadow 0.2s;
 }
-
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
-
-
 .card-img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    margin: 0 auto 15px auto;
-    display: block;
+    margin-bottom: 15px;
 }
-
 .card-title {
     font-size: 1.5rem;
-    margin: 10px 0;
-    font-weight: bold;
+    margin-bottom: 10px;
 }
-
 .card-text {
     font-size: 1.1rem;
     color: #555;
     line-height: 1.4;
 }
-
-
-@media (max-width: 900px) {
-    .cards-container {
-        justify-content: center;
-    }
-}
-
-@media (max-width: 700px) {
-    .cards-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .card {
-        width: 80%;
-        margin-bottom: 20px;
-    }
-}
-/* ===================== */
-/* LONG CARDS SECTION     */
-/* ===================== */
-
 .long-cards-section {
-    padding: 50px 40px;
+    padding: 60px 40px;
 }
-
 .section-title {
     text-align: center;
     font-size: 3rem;
     margin-bottom: 40px;
-    font-weight: bold;
     color: white;
 }
-
-
 .long-cards-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 kaarten per rij */
-    gap: 50px; /* ruimte tussen kaarten */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
 }
-
 .long-card {
     display: flex;
     background-color: #f9f9f9;
-    border-radius: 10px;
+    border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s;
+}
+.long-card:hover {
+    transform: translateY(-4px);
 }
 .long-card-img {
-    margin: 15px;
-    padding: 12px;
-    width: auto;
-    height: 100px;
-    object-fit: cover;
+    margin: 20px;
+    height: 90px;
+    width: 90px;
+    object-fit: contain;
 }
-
 .long-card-text {
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-
 .long-card-text h3 {
     font-size: 1.4rem;
     margin-bottom: 10px;
 }
-
 .long-card-text p {
     font-size: 1rem;
     color: #555;
     line-height: 1.4;
 }
-
-@media (max-width: 900px) {
-    .long-cards-container {
-        grid-template-columns: 1fr; /* kaarten onder elkaar op tablet/mobiel */
-    }
-
-    .long-card {
-        flex-direction: column; /* afbeelding boven tekst */
-        align-items: center;
-        text-align: center;
-    }
-
-    .long-card-img {
-        width: 100%;
-        height: auto;
-        border-right: none;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .long-card-text {
-        padding: 15px;
-    }
-}
-
 .site-footer {
-    background-color: #222;       /* donkergrijze achtergrond */
-    color: #f5f5f5;               /* lichte tekst */
-    padding: 40px 20px 20px 20px;
-    font-family: sans-serif;
+    background-color: #222;
+    color: #f5f5f5;
+    padding: 40px 20px 20px;
 }
-
 .footer-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 20px;
+    gap: 30px;
     max-width: 1200px;
     margin: 0 auto;
 }
-
 .footer-section {
     flex: 1 1 200px;
 }
-
 .footer-section h3 {
     font-size: 1.2rem;
     margin-bottom: 10px;
 }
-
 .footer-section p,
 .footer-section a {
     font-size: 0.95rem;
     color: #f5f5f5;
     text-decoration: none;
-    line-height: 1.5;
+    line-height: 1.6;
 }
-
 .footer-section a:hover {
     text-decoration: underline;
 }
-
 .footer-bottom {
-    text-align: center;
     margin-top: 30px;
+    text-align: center;
     font-size: 0.85rem;
     border-top: 1px solid #444;
     padding-top: 15px;
     color: #ccc;
 }
+@media (max-width: 900px) {
+    .cards-container {
+        justify-content: center;
+    }
+    .long-cards-container {
+        grid-template-columns: 1fr;
+    }
+}
 @media (max-width: 768px) {
+    .hero-image {
+        height: 40vh;
+        min-height: 260px;
+    }
+    .section-title {
+        font-size: 2.3rem;
+    }
+    .card {
+        width: 90%;
+        max-width: 360px;
+    }
+    .long-card {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+    .long-card-img {
+        margin-bottom: 10px;
+    }
     .footer-container {
         flex-direction: column;
         align-items: center;
         text-align: center;
     }
-
-    .footer-section {
-        margin-bottom: 20px;
+}
+@media (max-width: 480px) {
+    .hero-image {
+        height: 35vh;
+        min-height: 220px;
+    }
+    .section-title {
+        font-size: 2rem;
+    }
+    .card-title {
+        font-size: 1.4rem;
+    }
+    .card-text {
+        font-size: 1rem;
     }
 }

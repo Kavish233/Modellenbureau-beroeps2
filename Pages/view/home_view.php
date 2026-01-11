@@ -8,22 +8,44 @@
     <title>Document</title>
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/main.css">
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/home.css">
-
+    <script src="/beroeps/Modellenbureau/Script/menu.js" defer></script>
 </head>
 <body>
 <header>
     <nav class="nav">
+        <!-- Desktop links -->
         <div class="nav-left">
             <a href="#">Home</a>
             <a href="#">Inschrijven</a>
             <a href="#">Modellen zoeken</a>
         </div>
 
+        <!-- Desktop rechts -->
         <div class="nav-right">
-            <a href="#">Profiel</a>
+            <div class="profile-circle">P</div>
+        </div>
+
+        <!-- Mobile nav: hamburger links, profiel rechts -->
+        <div class="mobile-nav">
+            <div class="hamburger" id="hamburger">☰</div>
+            <div class="profile-circle mobile-profile">P</div>
         </div>
     </nav>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#">Home</a>
+        <a href="#">Inschrijven</a>
+        <a href="#">Modellen zoeken</a>
+    </div>
 </header>
+
+
+
+
+
+
+
 
 <section class="hero">
     <div class="hero-image">

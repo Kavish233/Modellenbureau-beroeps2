@@ -3,6 +3,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px; /* ruimte rondom login card op mobiel */
+    box-sizing: border-box;
 }
 
 .login-card {
@@ -12,7 +14,10 @@
     padding: 50px;
     border-radius: 12px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    box-sizing: border-box;
+    text-align: center;
 }
+
 
 .login-card h2 {
     text-align: center;
@@ -20,8 +25,10 @@
     font-size: 2rem;
 }
 
+/* FORM */
 .form-group {
     margin-bottom: 15px;
+    text-align: left;
 }
 
 .form-group label {
@@ -36,6 +43,8 @@
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 1.1rem;
+    box-sizing: border-box;
+    transition: all 0.2s;
 }
 
 .form-group input:focus {
@@ -43,6 +52,7 @@
     border-color: #000;
 }
 
+/* LOGIN KNOP */
 .login-btn {
     width: 100%;
     padding: 15px;
@@ -54,12 +64,14 @@
     font-weight: bold;
     cursor: pointer;
     margin-top: 10px;
+    transition: background-color 0.2s;
 }
 
 .login-btn:hover {
     background-color: #d39898;
 }
 
+/* REGISTER LINK */
 .register-link {
     text-align: center;
     margin-top: 20px;
@@ -74,4 +86,59 @@
 
 .register-link a:hover {
     text-decoration: underline;
+}
+
+
+@media (max-width: 768px) {
+    .login-page {
+        min-height: 75vh;
+    }
+    .login-card {
+        width: 90%;        /* smaller op tablet */
+        padding: 35px;
+        min-height: 400px;
+    }
+
+    .login-card h2 {
+        font-size: 1.6rem;
+    }
+
+    .form-group input {
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    .login-btn {
+        font-size: 1rem;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        width: 100%;        /* bijna volledige breedte mobiel */
+        min-height: 350px;
+    }
+
+    .login-card h2 {
+        font-size: 1.4rem;
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+    }
+
+    .form-group input {
+        padding: 10px;
+        font-size: 0.95rem;
+    }
+
+    .login-btn {
+        font-size: 0.95rem;
+        padding: 10px;
+    }
+
+    .register-link {
+        font-size: 0.85rem;
+    }
 }

@@ -40,7 +40,7 @@
 
         <p class="register-link">
             Al een account?
-            <a href="login.php">Inloggen</a>
+            <a href="inlog.php">Inloggen</a>
         </p>
     </div>
 </div>

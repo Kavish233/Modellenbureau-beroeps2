@@ -6,6 +6,7 @@
     <title>Schrijf je in als model</title>
 
     <link rel="stylesheet" href="/beroeps/modellenbureau/CSS/main.css">
+    <link rel="stylesheet" href="/beroeps/modellenbureau/CSS/inschrijf.css">
 </head>
 <body>
 
@@ -14,6 +15,20 @@
     <h1>Schrijf je in als model</h1>
 
     <div class="register-container">
+
+        <div class="info-box">
+            <div class="info-icon">i</div>
+            <p>
+                Je inschrijving wordt beoordeeld door een docent voordat deze wordt goedgekeurd.
+            </p>
+            <p>
+                Alleen studenten van het Grafisch Lyceum Rotterdam kunnen zich registreren als model.
+            </p>
+
+            <button type="submit" class="submit-btn" form="register-form">
+                Schrijf in
+            </button>
+        </div>
 
         <form class="register-form" action="#" method="post" enctype="multipart/form-data">
 
@@ -63,20 +78,6 @@
 
         </form>
 
-
-        <div class="info-box">
-            <div class="info-icon">i</div>
-            <p>
-                Je inschrijving wordt beoordeeld door een docent voordat deze wordt goedgekeurd.
-            </p>
-            <p>
-                Alleen studenten van het Grafisch Lyceum Rotterdam kunnen zich registreren als model.
-            </p>
-
-            <button type="submit" class="submit-btn" form="register-form">
-                Schrijf in
-            </button>
-        </div>
 
     </div>
 </div>

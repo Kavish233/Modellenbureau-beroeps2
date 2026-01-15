@@ -14,7 +14,7 @@
     <div class="login-card">
         <h2>Inloggen</h2>
 
-        <form action="#" method="post">
+        <form action="home.php" method="post">
             <div class="form-group">
                 <label for="email">E-mailadres</label>
                 <input type="email" id="email" name="email" placeholder="Voer je e-mail in" required>

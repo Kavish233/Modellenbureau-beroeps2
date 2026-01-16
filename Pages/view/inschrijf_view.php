@@ -25,12 +25,9 @@
                 Alleen studenten van het Grafisch Lyceum Rotterdam kunnen zich registreren als model.
             </p>
 
-            <button type="submit" class="submit-btn" form="register-form">
-                Schrijf in
-            </button>
         </div>
 
-        <form class="register-form" action="#" method="post" enctype="multipart/form-data">
+        <form class="register-form" action="inschrijf.php" method="post" enctype="multipart/form-data">
 
             <div class="row">
                 <div class="form-group">
@@ -75,6 +72,8 @@
                 <label for="email">E-mail</label>
                 <input type="email" id="email" name="email" required>
             </div>
+
+            <button type="submit" class="submit-btn">Schrijf in</button>
 
         </form>
 

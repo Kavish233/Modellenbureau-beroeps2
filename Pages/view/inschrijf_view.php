@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schrijf je in als model</title>
 
-    <link rel="stylesheet" href="/beroeps/modellenbureau/CSS/main.css">
-    <link rel="stylesheet" href="/beroeps/modellenbureau/CSS/inschrijf.css">
+    <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/main.css">
+    <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/inschrijf.css">
 </head>
 <body>
 

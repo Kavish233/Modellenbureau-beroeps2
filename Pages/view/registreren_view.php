@@ -6,15 +6,15 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="/beroeps/modellenbureau/CSS/registreren.css">
-    <link rel="stylesheet" href="/beroeps/modellenbureau/CSS/main.css">
+    <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/registreren.css">
+    <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/main.css">
 </head>
 <body>
 <div class="login-page">
     <div class="login-card">
         <h2>Registreren</h2>
 
-        <form action="#" method="post">
+        <form action="registreren.php" method="post">
             <div class="form-group">
                 <label for="email">E-mailadres</label>
                 <input type="email" id="email" name="email" placeholder="Voer je e-mail in" required>
@@ -44,5 +44,8 @@
         </p>
     </div>
 </div>
+
+<?php if(!empty($melding)) { echo "<p style='color:red;'>$melding</p>"; } ?>
+
 </body>
 </html>

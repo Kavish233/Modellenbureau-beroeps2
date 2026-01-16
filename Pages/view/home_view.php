@@ -6,8 +6,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="/beroeps/modellenbureau/CSS/main.css">
-    <link rel="stylesheet" href="/beroeps/modellenbureau/CSS/home.css">
+    <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/main.css">
+    <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/home.css">
     <script src="/beroeps/Modellenbureau/Script/menu.js" defer></script>
 </head>
 <body>

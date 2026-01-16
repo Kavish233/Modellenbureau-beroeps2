@@ -1,52 +1,48 @@
 <?php
+session_start();
+require 'config.php'; // Zorg dat $conn hier staat
 
-include "view/registreren_view.php";
-
-require 'config.php';
-
-$resultaat = "";
+$melding = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    $studentennummer = $_POST['studentennummer'];
-    $naam = $_POST['naam'];
-    $email = $_POST['email'];
+    $naam = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $studentennummer = trim($_POST['studentnummer']);
     $wachtwoord = $_POST['password'];
 
-    if (!empty($studentennummer) && !empty($naam) && !empty($email) && !empty($wachtwoord)) {
+    // Controleer of alle velden zijn ingevuld
+    if (!empty($naam) && !empty($email) && !empty($studentennummer) && !empty($wachtwoord)) {
 
-        // Check of email al bestaat
-        $checkQuery = "SELECT User_ID FROM USERS WHERE Email = :email";
-        $checkStmt = $conn->prepare($checkQuery);
-        $checkStmt->execute([':email' => $email]);
+        // Controleer of e-mail al bestaat
+        $stmt = $conn->prepare("SELECT * FROM USERS WHERE Email = :email");
+        $stmt->execute([':email' => $email]);
 
-        if ($checkStmt->rowCount() > 0) {
-            $resultaat = "Dit e-mailadres bestaat al";
+        if ($stmt->rowCount() > 0) {
+            $melding = "E-mail is al in gebruik!";
         } else {
+            // Hash het wachtwoord (sha1 omdat je login dat ook gebruikt)
+            $wwhash = sha1($wachtwoord);
 
-            // Wachtwoord veilig hashen
-            $wwhash = password_hash($wachtwoord, PASSWORD_DEFAULT);
+            // Voeg gebruiker toe met rol 'model' en status 'pending'
+            $stmt = $conn->prepare("INSERT INTO USERS (Studentennummer, naam, Email, wachtwoord, rol, Status)
+                                    VALUES (:studentennummer, :naam, :email, :pw, 'model', 'pending')");
 
-            // User toevoegen
-            $insertQuery = "
-                INSERT INTO USERS (Studentennummer, Naam, Email, Wachtwoord, Rol, Status)
-                VALUES (:studentennummer, :naam, :email, :wachtwoord, 'model', 'pending')
-            ";
-
-            $stmt = $conn->prepare($insertQuery);
             $stmt->execute([
                 ':studentennummer' => $studentennummer,
                 ':naam' => $naam,
                 ':email' => $email,
-                ':wachtwoord' => $wwhash
+                ':pw' => $wwhash
             ]);
 
-            header('Location: inlog.php');
-            exit;
+            // Redirect naar inlogpagina na succesvolle registratie
+            header("Location: inlog.php");
+            exit(); // Stop het script na redirect
         }
-
     } else {
-        $resultaat = "Vul alle velden in";
+        $melding = "Vul alle velden correct in!";
     }
 }
 
+// Als er iets misgaat, toon de view met foutmelding
+include 'view/registreren_view.php';
+?>

@@ -25,6 +25,10 @@
                 Alleen studenten van het Grafisch Lyceum Rotterdam kunnen zich registreren als model.
             </p>
 
+            <a href="model-profiel.php" class="submit-btn">
+                Schrijf in
+            </a>
+
         </div>
 
         <form class="register-form" action="inschrijf.php" method="post" enctype="multipart/form-data">

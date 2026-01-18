@@ -16,7 +16,7 @@
         <!-- Desktop links -->
         <div class="nav-left">
             <a href="#">Home</a>
-            <a href="#">Inschrijven</a>
+            <a href="/beroeps/Modellenbureau/Pages/inschrijf.php">Inschrijven</a>
             <a href="#">Modellen zoeken</a>
         </div>
 

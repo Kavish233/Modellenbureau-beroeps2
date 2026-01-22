@@ -9,6 +9,34 @@
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/inschrijf.css">
 </head>
 <body>
+<header>
+    <nav class="nav">
+        <!-- Desktop links -->
+        <div class="nav-left">
+            <a href="home.php">Home</a>
+            <a href="inschrijf.php">Inschrijven</a>
+            <a href="modellen-overzicht.php">Modellen zoeken</a>
+        </div>
+
+        <!-- Desktop rechts -->
+        <div class="nav-right">
+            <div class="profile-circle">P</div>
+        </div>
+
+        <!-- Mobile nav: hamburger links, profiel rechts -->
+        <div class="mobile-nav">
+            <div class="hamburger" id="hamburger">☰</div>
+            <div class="profile-circle mobile-profile">P</div>
+        </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="home.php">Home</a>
+        <a href="inschrijf.php">Inschrijven</a>
+        <a href="modellen-overzicht.php">Modellen zoeken</a>
+    </div>
+</header>
 
 <div class="register-page">
 

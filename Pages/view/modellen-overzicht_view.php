@@ -8,32 +8,9 @@ $uploadsPath = "/beroeps/Modellenbureau/Pages/uploads/";
 <head>
     <meta charset="UTF-8">
     <title>Modellen Overzicht</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-        }
-        .container {
-            max-width: 1000px;
-            margin: auto;
-        }
-        .model-card {
-            background: #fff;
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin-bottom: 20px;
-            display: flex;
-            gap: 20px;
-            border-radius: 6px;
-        }
-        .model-card img {
-            width: 150px;
-            border-radius: 4px;
-        }
-        .model-info p {
-            margin: 5px 0;
-        }
-    </style>
+    <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/main.css">
+    <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/modellen-overzicht.css">
+
 </head>
 <body>
 

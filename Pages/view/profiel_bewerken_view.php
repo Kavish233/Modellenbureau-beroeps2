@@ -9,6 +9,18 @@
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/main.css">
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/profiel_bewerken.css">
     <script src="/beroeps/Modellenbureau/Script/menu.js" defer></script>
+
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f2f2f2; }
+        .container { display: flex; max-width: 900px; margin: 40px auto; gap: 30px; }
+        .left { flex: 1; }
+        .right { flex: 2; background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+        img { width: 200px; height: auto; border-radius: 6px; margin-bottom: 20px; }
+        label { display: block; margin: 10px 0 5px; }
+        input[type="text"], textarea { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
+        button { margin-top: 15px; padding: 10px 20px; border: none; border-radius: 4px; background: #007bff; color: #fff; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
 </head>
 <body>
 
@@ -41,67 +53,36 @@
     </div>
 </header>
 
-<div class="page">
-    <div class="frame">
-        <div class="grid">
+<div class="container">
+    <div class="left">
+        <h2>Huidige Profielfoto</h2>
+        <?php if (!empty($model['Foto'])): ?>
+            <img src="/beroeps/Modellenbureau/Pages/<?= htmlspecialchars($model['Foto']) ?>" alt="Profielfoto">
+        <?php else: ?>
+            <img src="/beroeps/Modellenbureau/Pages/uploads/placeholder.jpg" alt="Geen foto">
+        <?php endif; ?>
+    </div>
 
-            <!-- LINKS -->
-            <div class="leftCard">
-                <div class="avatar">
-                    <?php if ($foto !== ''): ?>
-                        <img src="<?= e($foto) ?>" alt="Profielfoto">
-                    <?php endif; ?>
-                </div>
+    <div class="right">
+        <h2>Profiel Bewerken</h2>
+        <form method="post" enctype="multipart/form-data">
+            <label>Naam / Beschrijving</label>
+            <textarea name="Beschrijving" rows="2"><?= htmlspecialchars($model['Beschrijving']) ?></textarea>
 
-                <div class="leftTitle"><?= e($model['naam'] ?? 'volledige naam') ?></div>
-                <div class="smallLabel"><?= e($model['studentnummer'] ?? 'Studentnummer') ?></div>
+            <label>Studentnummer</label>
+            <input type="text" name="User_ID" value="<?= htmlspecialchars($model['User_ID']) ?>">
 
-                <div class="leftBtns">
-                    <!-- Deze links kunnen je teamgenoot later koppelen -->
-                    <a class="btnMini" href="profielfoto_wijzigen.php">Profielfoto wijzigen</a>
-                    <a class="btnMini" href="#beschrijving">Beschrijving aanpassen</a>
-                </div>
+            <label>Lengte (cm)</label>
+            <input type="text" name="Lengte" value="<?= htmlspecialchars($model['Lengte']) ?>">
 
-                <div class="divider"></div>
+            <label>Opleiding</label>
+            <input type="text" name="Opleiding" value="<?= htmlspecialchars($model['Opleiding']) ?>">
 
-                <!-- Account verwijderen -->
-                <a class="btnDanger" href="account_verwijderen.php"
-                   onclick="return confirm('Weet je zeker dat je je account wilt verwijderen? Dit kan niet ongedaan gemaakt worden.');">
-                    Account verwijderen
-                </a>
-            </div>
+            <label>Wijzig profielfoto</label>
+            <input type="file" name="Foto" accept="image/*">
 
-            <!-- RECHTS -->
-            <div class="rightCard">
-                <?php if ($success): ?>
-                    <div class="msg ok">Opgeslagen.</div>
-                <?php elseif ($errorMsg !== ''): ?>
-                    <div class="msg err"><?= e($errorMsg) ?></div>
-                <?php endif; ?>
-
-                <form method="post">
-                    <div class="field">
-                        <label for="naam">Naam</label>
-                        <input class="input" id="naam" name="naam" type="text" value="<?= e((string)$model['naam']) ?>" required>
-                    </div>
-
-                    <div class="field">
-                        <label for="studentnummer">Studentnummer</label>
-                        <input class="input" id="studentnummer" name="studentnummer" type="text" value="<?= e((string)$model['studentnummer']) ?>" required>
-                    </div>
-
-                    <div class="field" id="beschrijving">
-                        <label for="beschrijving">Beschrijving</label>
-                        <textarea class="input" id="beschrijving" name="beschrijving"><?= e((string)($model['beschrijving'] ?? '')) ?></textarea>
-                    </div>
-
-                    <div class="saveWrap">
-                        <button class="btnSave" type="submit">Opslaan</button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
+            <button type="submit">Opslaan</button>
+        </form>
     </div>
 </div>
 

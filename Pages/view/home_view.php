@@ -35,7 +35,7 @@
     <!-- Mobile menu -->
     <div class="mobile-menu" id="mobileMenu">
         <a href="#">Home</a>
-        <a href="#">Inschrijven</a>
+        <a href="/beroeps/Modellenbureau/Pages/inschrijf.php">Inschrijven</a>
         <a href="#">Modellen zoeken</a>
     </div>
 </header>

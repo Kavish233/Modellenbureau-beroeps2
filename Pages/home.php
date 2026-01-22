@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (count($resultaten) > 0) {
             $_SESSION['naam'] = $naam;
-            header('Location: agenda.php');
+            header('Location: home.php');
             exit;
         } else {
             $resultaat = "Naam of wachtwoord onjuist";

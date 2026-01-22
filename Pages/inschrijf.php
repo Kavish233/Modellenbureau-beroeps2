@@ -2,6 +2,17 @@
 session_start();
 require 'config.php'; // PDO $conn
 
+// Haal user data op voor profielfoto (als ingelogd)
+$profielFoto = null;
+if (isset($_SESSION['naam'])) {
+    $email = $_SESSION['naam'];
+    $sql = "SELECT ProfielFoto FROM USERS WHERE Email = :email";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute(['email' => $email]);
+    $user = $stmt->fetch();
+    $profielFoto = $user['ProfielFoto'] ?? null;
+}
+
 // Include altijd het formulier view
 include "view/inschrijf_view.php";
 

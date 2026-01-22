@@ -1,4 +1,5 @@
 <?php
+session_start();
 // modellen-overzicht.php
 
 // Foutmeldingen zichtbaar maken (alleen voor ontwikkeling)
@@ -7,6 +8,17 @@ error_reporting(E_ALL);
 
 // Database connectie
 require 'config.php'; // Zorg dat $conn (PDO) hier beschikbaar is
+
+// Haal user data op voor profielfoto (als ingelogd)
+$profielFoto = null;
+if (isset($_SESSION['naam'])) {
+    $email = $_SESSION['naam'];
+    $sql = "SELECT ProfielFoto FROM USERS WHERE Email = :email";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute(['email' => $email]);
+    $user = $stmt->fetch();
+    $profielFoto = $user['ProfielFoto'] ?? null;
+}
 
 // Map waar de uploads staan (relatief aan de root van je project)
 $uploadsPath = "/beroeps/Modellenbureau/Pages/uploads/";

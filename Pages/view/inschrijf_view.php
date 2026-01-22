@@ -21,7 +21,13 @@
         <!-- Desktop rechts -->
         <div class="nav-right">
             <a href="profiel_bewerken.php" style="text-decoration: none;">
-                <div class="profile-circle">P</div>
+                <div class="profile-circle">
+                    <?php if (!empty($profielFoto)): ?>
+                        <img src="/beroeps/Modellenbureau/Pages/<?= htmlspecialchars($profielFoto) ?>" alt="Profielfoto">
+                    <?php else: ?>
+                        P
+                    <?php endif; ?>
+                </div>
             </a>
         </div>
 
@@ -29,7 +35,13 @@
         <div class="mobile-nav">
             <div class="hamburger" id="hamburger">☰</div>
             <a href="profiel_bewerken.php" style="text-decoration: none;">
-                <div class="profile-circle mobile-profile">P</div>
+                <div class="profile-circle mobile-profile">
+                    <?php if (!empty($profielFoto)): ?>
+                        <img src="/beroeps/Modellenbureau/Pages/<?= htmlspecialchars($profielFoto) ?>" alt="Profielfoto">
+                    <?php else: ?>
+                        P
+                    <?php endif; ?>
+                </div>
             </a>
         </div>
     </nav>

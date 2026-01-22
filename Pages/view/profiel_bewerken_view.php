@@ -54,8 +54,8 @@
         <!-- Linker card met profielfoto -->
         <div class="leftCard">
             <div class="avatar">
-                <?php if (!empty($model['Foto'])): ?>
-                    <img src="/beroeps/Modellenbureau/Pages/<?= htmlspecialchars($model['Foto']) ?>" alt="Profielfoto" id="profileImage">
+                <?php if (!empty($user['ProfielFoto'])): ?>
+                    <img src="/beroeps/Modellenbureau/Pages/<?= htmlspecialchars($user['ProfielFoto']) ?>" alt="Profielfoto" id="profileImage">
                 <?php else: ?>
                     <div style="width: 100%; height: 100%; background: #CFCFCF; display: flex; align-items: center; justify-content: center; color: #666;">Geen foto</div>
                 <?php endif; ?>

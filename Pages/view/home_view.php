@@ -22,13 +22,17 @@
 
         <!-- Desktop rechts -->
         <div class="nav-right">
-            <div class="profile-circle">P</div>
+            <a href="/beroeps/Modellenbureau/Pages/profiel_bewerken.php" style="text-decoration: none;">
+                <div class="profile-circle">P</div>
+            </a>
         </div>
 
         <!-- Mobile nav: hamburger links, profiel rechts -->
         <div class="mobile-nav">
             <div class="hamburger" id="hamburger">☰</div>
-            <div class="profile-circle mobile-profile">P</div>
+            <a href="/beroeps/Modellenbureau/Pages/profiel_bewerken.php" style="text-decoration: none;">
+                <div class="profile-circle mobile-profile">P</div>
+            </a>
         </div>
     </nav>
 

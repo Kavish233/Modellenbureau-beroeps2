@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,18 +9,6 @@
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/main.css">
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/profiel_bewerken.css">
     <script src="/beroeps/Modellenbureau/Script/menu.js" defer></script>
-
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f2f2f2; }
-        .container { display: flex; max-width: 900px; margin: 40px auto; gap: 30px; }
-        .left { flex: 1; }
-        .right { flex: 2; background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
-        img { width: 200px; height: auto; border-radius: 6px; margin-bottom: 20px; }
-        label { display: block; margin: 10px 0 5px; }
-        input[type="text"], textarea { width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
-        button { margin-top: 15px; padding: 10px 20px; border: none; border-radius: 4px; background: #007bff; color: #fff; cursor: pointer; }
-        button:hover { background: #0056b3; }
-    </style>
 </head>
 <body>
 
@@ -28,61 +16,85 @@
     <nav class="nav">
         <!-- Desktop links -->
         <div class="nav-left">
-            <a href="#">Home</a>
-            <a href="#">Inschrijven</a>
-            <a href="#">Modellen zoeken</a>
+            <a href="home.php">Home</a>
+            <a href="inschrijf.php">Inschrijven</a>
+            <a href="modellen-overzicht.php">Modellen zoeken</a>
         </div>
 
         <!-- Desktop rechts -->
         <div class="nav-right">
-            <div class="profile-circle">P</div>
+            <a href="profiel_bewerken.php" style="text-decoration: none;">
+                <div class="profile-circle">P</div>
+            </a>
         </div>
 
         <!-- Mobile nav: hamburger links, profiel rechts -->
         <div class="mobile-nav">
             <div class="hamburger" id="hamburger">☰</div>
-            <div class="profile-circle mobile-profile">P</div>
+            <a href="profiel_bewerken.php" style="text-decoration: none;">
+                <div class="profile-circle mobile-profile">P</div>
+            </a>
         </div>
     </nav>
 
     <!-- Mobile menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#">Home</a>
-        <a href="#">Inschrijven</a>
-        <a href="#">Modellen zoeken</a>
+        <a href="home.php">Home</a>
+        <a href="inschrijf.php">Inschrijven</a>
+        <a href="modellen-overzicht.php">Modellen zoeken</a>
     </div>
 </header>
 
-<div class="container">
-    <div class="left">
-        <h2>Huidige Profielfoto</h2>
-        <?php if (!empty($model['Foto'])): ?>
-            <img src="/beroeps/Modellenbureau/Pages/<?= htmlspecialchars($model['Foto']) ?>" alt="Profielfoto">
-        <?php else: ?>
-            <img src="/beroeps/Modellenbureau/Pages/uploads/placeholder.jpg" alt="Geen foto">
-        <?php endif; ?>
-    </div>
+<div class="page">
+    <?php if (!empty($melding)): ?>
+        <div class="msg err"><?= htmlspecialchars($melding) ?></div>
+    <?php endif; ?>
 
-    <div class="right">
-        <h2>Profiel Bewerken</h2>
-        <form method="post" enctype="multipart/form-data">
-            <label>Naam / Beschrijving</label>
-            <textarea name="Beschrijving" rows="2"><?= htmlspecialchars($model['Beschrijving']) ?></textarea>
+    <div class="grid">
+        <!-- Linker card met profielfoto -->
+        <div class="leftCard">
+            <div class="avatar">
+                <?php if (!empty($model['Foto'])): ?>
+                    <img src="/beroeps/Modellenbureau/Pages/<?= htmlspecialchars($model['Foto']) ?>" alt="Profielfoto">
+                <?php else: ?>
+                    <div style="width: 100%; height: 100%; background: #CFCFCF; display: flex; align-items: center; justify-content: center; color: #666;">Geen foto</div>
+                <?php endif; ?>
+            </div>
+            <div class="leftTitle">Profielfoto</div>
+            <div class="smallLabel">Upload een nieuwe foto</div>
+        </div>
 
-            <label>Studentnummer</label>
-            <input type="text" name="User_ID" value="<?= htmlspecialchars($model['User_ID']) ?>">
+        <!-- Rechter card met formulier -->
+        <div class="rightCard">
+            <h2 style="margin-top: 0; margin-bottom: 18px;">Profiel bewerken</h2>
+            
+            <form method="post" enctype="multipart/form-data">
+                <div class="field">
+                    <label>Naam</label>
+                    <input type="text" name="naam" class="input" value="<?= htmlspecialchars($user['naam'] ?? '') ?>" required>
+                </div>
 
-            <label>Lengte (cm)</label>
-            <input type="text" name="Lengte" value="<?= htmlspecialchars($model['Lengte']) ?>">
+                <div class="field">
+                    <label>Studentennummer</label>
+                    <input type="text" class="input" value="<?= htmlspecialchars($user['Studentennummer'] ?? '') ?>" disabled style="background: #f0f0f0;">
+                    <small style="font-size: 11px; color: #666;">Studentennummer kan niet worden gewijzigd</small>
+                </div>
 
-            <label>Opleiding</label>
-            <input type="text" name="Opleiding" value="<?= htmlspecialchars($model['Opleiding']) ?>">
+                <div class="field">
+                    <label>Beschrijving</label>
+                    <textarea name="beschrijving" class="input" rows="4"><?= htmlspecialchars($model['Beschrijving'] ?? '') ?></textarea>
+                </div>
 
-            <label>Wijzig profielfoto</label>
-            <input type="file" name="Foto" accept="image/*">
+                <div class="field">
+                    <label>Wijzig profielfoto</label>
+                    <input type="file" name="Foto" accept="image/*" class="input" style="padding: 8px;">
+                </div>
 
-            <button type="submit">Opslaan</button>
-        </form>
+                <div class="saveWrap">
+                    <button type="submit" class="btnSave">Opslaan</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

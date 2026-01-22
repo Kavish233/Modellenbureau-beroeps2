@@ -1,8 +1,3 @@
-<?php
-// Bepaal het pad naar de uploads-map
-$uploadsPath = "/beroeps/Modellenbureau/Pages/uploads/";
-?>
-
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -10,7 +5,6 @@ $uploadsPath = "/beroeps/Modellenbureau/Pages/uploads/";
     <title>Modellen Overzicht</title>
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/main.css">
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/modellen-overzicht.css">
-
 </head>
 <body>
 
@@ -23,11 +17,13 @@ $uploadsPath = "/beroeps/Modellenbureau/Pages/uploads/";
         <?php foreach ($modellen as $model): ?>
             <div class="model-card">
 
-                <?php if (!empty($model['Foto'])): ?>
-                    <img src="<?= $uploadsPath . htmlspecialchars(basename($model['Foto'])) ?>" alt="Model foto">
-                <?php else: ?>
-                    <img src="<?= $uploadsPath ?>placeholder.jpg" alt="Geen foto">
-                <?php endif; ?>
+                <?php
+                // Controleer of er een foto is, anders fallback
+                $fotoPad = (!empty($model['Foto']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/beroeps/Modellenbureau/Pages/' . $model['Foto']))
+                    ? '/beroeps/Modellenbureau/Pages/' . htmlspecialchars($model['Foto'])
+                    : '/beroeps/Modellenbureau/Pages/uploads/placeholder.jpg';
+                ?>
+                <img src="<?= $fotoPad ?>" alt="Model foto">
 
                 <div class="model-info">
                     <p><strong>Profiel ID:</strong> <?= htmlspecialchars($model['Profiel_ID']) ?></p>

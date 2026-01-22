@@ -44,12 +44,41 @@ if (!$model) {
 
 $melding = "";
 
+// Handle account verwijderen
+if (isset($_GET['action']) && $_GET['action'] === 'delete_account') {
+    if (isset($_GET['confirm']) && $_GET['confirm'] === 'yes') {
+        // Verwijder eerst modelprofiel als het bestaat
+        if ($model['Profiel_ID']) {
+            $deleteModel = "DELETE FROM Modelen WHERE User_ID = :user_id";
+            $stmt = $conn->prepare($deleteModel);
+            $stmt->execute(['user_id' => $user_id]);
+        }
+        
+        // Verwijder gebruiker
+        $deleteUser = "DELETE FROM USERS WHERE User_ID = :user_id";
+        $stmt = $conn->prepare($deleteUser);
+        $stmt->execute(['user_id' => $user_id]);
+        
+        // Vernietig sessie en redirect naar inlog
+        session_destroy();
+        header('Location: inlog.php?deleted=1');
+        exit;
+    }
+}
+
+// Handle uitloggen
+if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+    session_destroy();
+    header('Location: inlog.php');
+    exit;
+}
+
 // Check of formulier is verzonden
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $naam = trim($_POST['naam'] ?? '');
     $beschrijving = trim($_POST['beschrijving'] ?? '');
     
-    // Update naam in USERS tabel
+    // Update naam in USERS tabel (alleen als naam is ingevuld)
     if (!empty($naam)) {
         $updateUser = "UPDATE USERS SET naam = :naam WHERE User_ID = :user_id";
         $stmt = $conn->prepare($updateUser);
@@ -80,25 +109,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Update of insert modelprofiel
-    if ($model['Profiel_ID']) {
-        // Update bestaand profiel
-        $update = "UPDATE Modelen SET Beschrijving = :beschrijving, Foto = :foto WHERE Profiel_ID = :profiel_id";
-        $stmt = $conn->prepare($update);
-        $stmt->execute([
-            'beschrijving' => $beschrijving,
-            'foto' => $fotoPath,
-            'profiel_id' => $model['Profiel_ID']
-        ]);
+    // Als alleen foto wordt geüpload (zonder naam/beschrijving velden)
+    if (empty($naam) && empty($beschrijving) && isset($_FILES['Foto']) && $_FILES['Foto']['error'] === UPLOAD_ERR_OK) {
+        // Update alleen foto
+        if ($model['Profiel_ID']) {
+            $update = "UPDATE Modelen SET Foto = :foto WHERE Profiel_ID = :profiel_id";
+            $stmt = $conn->prepare($update);
+            $stmt->execute([
+                'foto' => $fotoPath,
+                'profiel_id' => $model['Profiel_ID']
+            ]);
+        } else {
+            // Maak nieuw profiel aan met alleen foto
+            $insert = "INSERT INTO Modelen (User_ID, Foto, Beschrijving, Status) VALUES (:user_id, :foto, :beschrijving, 'pending')";
+            $stmt = $conn->prepare($insert);
+            $stmt->execute([
+                'user_id' => $user_id,
+                'foto' => $fotoPath,
+                'beschrijving' => ''
+            ]);
+        }
     } else {
-        // Maak nieuw profiel aan
-        $insert = "INSERT INTO Modelen (User_ID, Foto, Beschrijving, Status) VALUES (:user_id, :foto, :beschrijving, 'pending')";
-        $stmt = $conn->prepare($insert);
-        $stmt->execute([
-            'user_id' => $user_id,
-            'foto' => $fotoPath,
-            'beschrijving' => $beschrijving
-        ]);
+        // Update of insert modelprofiel met naam en beschrijving
+        if ($model['Profiel_ID']) {
+            // Update bestaand profiel
+            $update = "UPDATE Modelen SET Beschrijving = :beschrijving, Foto = :foto WHERE Profiel_ID = :profiel_id";
+            $stmt = $conn->prepare($update);
+            $stmt->execute([
+                'beschrijving' => $beschrijving,
+                'foto' => $fotoPath,
+                'profiel_id' => $model['Profiel_ID']
+            ]);
+        } else {
+            // Maak nieuw profiel aan
+            $insert = "INSERT INTO Modelen (User_ID, Foto, Beschrijving, Status) VALUES (:user_id, :foto, :beschrijving, 'pending')";
+            $stmt = $conn->prepare($insert);
+            $stmt->execute([
+                'user_id' => $user_id,
+                'foto' => $fotoPath,
+                'beschrijving' => $beschrijving
+            ]);
+        }
     }
 
     // Herladen van het profiel

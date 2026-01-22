@@ -55,13 +55,27 @@
         <div class="leftCard">
             <div class="avatar">
                 <?php if (!empty($model['Foto'])): ?>
-                    <img src="/beroeps/Modellenbureau/Pages/<?= htmlspecialchars($model['Foto']) ?>" alt="Profielfoto">
+                    <img src="/beroeps/Modellenbureau/Pages/<?= htmlspecialchars($model['Foto']) ?>" alt="Profielfoto" id="profileImage">
                 <?php else: ?>
                     <div style="width: 100%; height: 100%; background: #CFCFCF; display: flex; align-items: center; justify-content: center; color: #666;">Geen foto</div>
                 <?php endif; ?>
             </div>
             <div class="leftTitle">Profielfoto</div>
-            <div class="smallLabel">Upload een nieuwe foto</div>
+            
+            <div class="leftBtns">
+                <!-- Formulier voor alleen foto upload -->
+                <form id="fotoForm" method="post" enctype="multipart/form-data" style="display: none;">
+                    <input type="file" name="Foto" accept="image/*" id="hiddenFotoInput" onchange="this.form.submit();">
+                </form>
+                
+                <button type="button" class="btnMini" onclick="document.getElementById('hiddenFotoInput').click();">Profielfoto wijzigen</button>
+                
+                <div class="divider"></div>
+                
+                <button type="button" class="btnMini" onclick="if(confirm('Weet je zeker dat je je account wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.')) { window.location.href='profiel_bewerken.php?action=delete_account&confirm=yes'; }">Account verwijderen</button>
+                
+                <a href="profiel_bewerken.php?action=logout" class="btnMini" onclick="return confirm('Weet je zeker dat je wilt uitloggen?');">Uitloggen</a>
+            </div>
         </div>
 
         <!-- Rechter card met formulier -->
@@ -83,11 +97,6 @@
                 <div class="field">
                     <label>Beschrijving</label>
                     <textarea name="beschrijving" class="input" rows="4"><?= htmlspecialchars($model['Beschrijving'] ?? '') ?></textarea>
-                </div>
-
-                <div class="field">
-                    <label>Wijzig profielfoto</label>
-                    <input type="file" name="Foto" accept="image/*" class="input" style="padding: 8px;">
                 </div>
 
                 <div class="saveWrap">

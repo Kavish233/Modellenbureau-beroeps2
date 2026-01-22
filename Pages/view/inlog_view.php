@@ -14,7 +14,18 @@
     <div class="login-card">
         <h2>Inloggen</h2>
 
-        <form action="home.php" method="post">
+        <?php if (!empty($resultaat)): ?>
+            <?php 
+            $bgColor = $isSuccess ? '#e8f5e9' : '#ffebee';
+            $textColor = $isSuccess ? '#2e7d32' : '#c62828';
+            $borderColor = $isSuccess ? '#66bb6a' : '#ef5350';
+            ?>
+            <div style="background-color: <?= $bgColor ?>; color: <?= $textColor ?>; padding: 12px; border-radius: 4px; margin-bottom: 20px; border: 1px solid <?= $borderColor ?>;">
+                <?= htmlspecialchars($resultaat) ?>
+            </div>
+        <?php endif; ?>
+
+        <form action="inlog.php" method="post">
             <div class="form-group">
                 <label for="email">E-mailadres</label>
                 <input type="email" id="email" name="email" placeholder="Voer je e-mail in" required>

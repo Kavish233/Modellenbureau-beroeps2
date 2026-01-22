@@ -1,11 +1,10 @@
 <?php
-
-include "view/home_view.php";
+session_start();
 require 'config.php';
 
 $resultaat = "";
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $naam = $_POST['email'];
     $wachtwoord = $_POST['password'];
 
@@ -22,15 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         if (count($resultaten) > 0) {
             $_SESSION['naam'] = $naam;
-            $_SESSION['level'] = $resultaten[0]['level'];
-            header('location: agenda.php');
-        }
-        else{
+            header('Location: agenda.php');
+            exit;
+        } else {
             $resultaat = "Naam of wachtwoord onjuist";
         }
+    } else {
+        $resultaat = "Vul alle velden in";
     }
-    else{
-        header('location: agenda.php');
-    }
-
 }
+
+// Pas hier pas je view includen
+include "view/home_view.php";

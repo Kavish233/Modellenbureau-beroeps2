@@ -94,3 +94,75 @@ body {
     }
 }
 
+/* Forceer grid + kaartstijl (wint van main.css) */
+.container .models-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 26px;
+    align-items: start;
+}
+
+/* Kaart */
+.container .model-tile {
+    background: #E3D6B4 !important;
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+    text-align: center;
+}
+
+/* Afbeelding blok */
+.container .model-image {
+    border-radius: 12px;
+    overflow: hidden;
+    background: #2f3e46;
+    margin-bottom: 12px;
+}
+
+/* Zorg dat img netjes binnen de kaart blijft */
+.container .model-image img {
+    width: 100% !important;
+    height: 170px !important;
+    object-fit: cover;
+    display: block;
+}
+
+/* Naam */
+.container .model-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+    margin: 8px 0 10px;
+}
+
+/* Link als knop (geen blauw/underline) */
+.container a.model-btn {
+    display: block;
+    width: 100%;
+    background: #EFE7CF;
+    border-radius: 12px;
+    padding: 8px 0;
+    font-size: 14px;
+    text-decoration: none !important;
+    color: #000 !important;
+    border: 1px solid rgba(0,0,0,0.10);
+}
+
+/* hover */
+.container a.model-btn:hover {
+    filter: brightness(0.96);
+}
+
+/* Responsive grid */
+@media (max-width: 1000px) {
+    .container .models-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .container .models-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+

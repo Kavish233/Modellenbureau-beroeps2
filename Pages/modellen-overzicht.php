@@ -23,10 +23,11 @@ if (isset($_SESSION['naam'])) {
 // Map waar de uploads staan (relatief aan de root van je project)
 $uploadsPath = "/beroeps/Modellenbureau/Pages/uploads/";
 
-// Modellen ophalen uit de database (alleen actieve modellen, niet gedeactiveerde)
+// Modellen ophalen uit de database (alleen actieve modellen, niet gedeactiveerde/rejected)
 try {
-    // Gebruik COALESCE om NULL waarden te behandelen als lege string, dan filteren op 'deactivated'
-    $sql = "SELECT * FROM Modelen WHERE COALESCE(Status, '') != 'deactivated'";
+    // Filter zowel 'rejected' als 'deactivated' (voor backwards compatibility)
+    // Toon alleen modellen met status NULL, 'pending', of andere actieve statussen
+    $sql = "SELECT * FROM Modelen WHERE COALESCE(Status, '') NOT IN ('rejected', 'deactivated')";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $modellen = $stmt->fetchAll(PDO::FETCH_ASSOC); // associatief array

@@ -54,14 +54,14 @@ if (isset($_GET['deactivated']) && $_GET['deactivated'] == '1') {
 // Handle account deactiveren
 if (isset($_GET['action']) && $_GET['action'] === 'deactivate_account') {
     if (isset($_GET['confirm']) && $_GET['confirm'] === 'yes') {
-        // Zet Status op 'deactivated' in Modelen tabel
+        // Zet Status op 'rejected' in Modelen tabel
         if ($model['Profiel_ID']) {
-            $deactivateModel = "UPDATE Modelen SET Status = 'deactivated' WHERE User_ID = :user_id";
+            $deactivateModel = "UPDATE Modelen SET Status = 'rejected' WHERE User_ID = :user_id";
             $stmt = $conn->prepare($deactivateModel);
             $stmt->execute(['user_id' => $user_id]);
         } else {
-            // Als er nog geen modelprofiel is, maak er een aan met status deactivated
-            $insert = "INSERT INTO Modelen (User_ID, Status) VALUES (:user_id, 'deactivated')";
+            // Als er nog geen modelprofiel is, maak er een aan met status rejected
+            $insert = "INSERT INTO Modelen (User_ID, Status) VALUES (:user_id, 'rejected')";
             $stmt = $conn->prepare($insert);
             $stmt->execute(['user_id' => $user_id]);
         }

@@ -32,6 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (!$gebruiker) {
             // Geen account → redirect naar registratiepagina
+            $voornaam = trim($_POST['voornaam'] ?? '');
+            $achternaam = trim($_POST['achternaam'] ?? '');
+            $naam = trim(($voornaam . ' ' . $achternaam));
+
+            $_SESSION['registreren_prefill'] = [
+                'email' => $email,
+                'name' => $naam,
+            ];
             header("Location: registreren.php");
             exit();
         }

@@ -59,7 +59,7 @@
 
 <div class="page">
     <?php if (!empty($melding)): ?>
-        <div class="msg err"><?= htmlspecialchars($melding) ?></div>
+        <div class="msg <?= !empty($meldingType) ? $meldingType : 'err' ?>"><?= htmlspecialchars($melding) ?></div>
     <?php endif; ?>
 
     <div class="grid">
@@ -84,9 +84,9 @@
                 
                 <div class="divider"></div>
                 
-                <button type="button" class="btnMini" onclick="if(confirm('Weet je zeker dat je je account wilt deactiveren? Je modelprofiel zal niet meer zichtbaar zijn op de modellen-overzicht pagina.')) { window.location.href='profiel_bewerken.php?action=deactivate_account&confirm=yes'; }">Account deactiveren</button>
+                <button type="button" class="btnMini" onclick="if(confirm('⚠️ Account deactiveren\n\nWeet je zeker dat je je account wilt deactiveren?\n\n• Je modelprofiel zal niet meer zichtbaar zijn op de modellen-overzicht pagina\n• Je kunt later altijd je account weer activeren\n• Je blijft ingelogd en kunt je profiel bewerken')) { window.location.href='profiel_bewerken.php?action=deactivate_account&confirm=yes'; }">Account deactiveren</button>
                 
-                <button type="button" class="btnMini" onclick="if(confirm('Weet je zeker dat je je account wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.')) { window.location.href='profiel_bewerken.php?action=delete_account&confirm=yes'; }">Account verwijderen</button>
+                <button type="button" class="btnMini" onclick="if(confirm('🗑️ Account verwijderen\n\nWAARSCHUWING: Deze actie kan NIET ongedaan worden gemaakt!\n\n• Je account en alle gegevens worden permanent verwijderd\n• Je modelprofiel wordt verwijderd\n• Je wordt uitgelogd\n\nWeet je zeker dat je door wilt gaan?')) { window.location.href='profiel_bewerken.php?action=delete_account&confirm=yes'; }">Account verwijderen</button>
                 
                 <a href="profiel_bewerken.php?action=logout" class="btnMini" onclick="return confirm('Weet je zeker dat je wilt uitloggen?');">Uitloggen</a>
             </div>

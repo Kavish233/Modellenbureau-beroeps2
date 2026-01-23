@@ -43,10 +43,12 @@ if (!$model) {
 }
 
 $melding = "";
+$meldingType = ""; // 'ok' of 'err'
 
 // Toon melding als account is gedeactiveerd
 if (isset($_GET['deactivated']) && $_GET['deactivated'] == '1') {
-    $melding = "Je account is succesvol gedeactiveerd. Je modelprofiel is niet meer zichtbaar op de modellen-overzicht pagina.";
+    $melding = "✓ Je account is succesvol gedeactiveerd. Je modelprofiel is niet meer zichtbaar op de modellen-overzicht pagina.";
+    $meldingType = "ok";
 }
 
 // Handle account deactiveren

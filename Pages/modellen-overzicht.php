@@ -25,7 +25,8 @@ $uploadsPath = "/beroeps/Modellenbureau/Pages/uploads/";
 
 // Modellen ophalen uit de database (alleen actieve modellen, niet gedeactiveerde)
 try {
-    $sql = "SELECT * FROM Modelen WHERE Status != 'deactivated' OR Status IS NULL";
+    // Gebruik COALESCE om NULL waarden te behandelen als lege string, dan filteren op 'deactivated'
+    $sql = "SELECT * FROM Modelen WHERE COALESCE(Status, '') != 'deactivated'";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $modellen = $stmt->fetchAll(PDO::FETCH_ASSOC); // associatief array

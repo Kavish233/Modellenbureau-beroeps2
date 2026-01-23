@@ -23,9 +23,9 @@ if (isset($_SESSION['naam'])) {
 // Map waar de uploads staan (relatief aan de root van je project)
 $uploadsPath = "/beroeps/Modellenbureau/Pages/uploads/";
 
-// Modellen ophalen uit de database
+// Modellen ophalen uit de database (alleen actieve modellen, niet gedeactiveerde)
 try {
-    $sql = "SELECT * FROM Modelen";
+    $sql = "SELECT * FROM Modelen WHERE Status != 'deactivated' OR Status IS NULL";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $modellen = $stmt->fetchAll(PDO::FETCH_ASSOC); // associatief array

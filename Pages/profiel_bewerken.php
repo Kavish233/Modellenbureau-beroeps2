@@ -44,6 +44,32 @@ if (!$model) {
 
 $melding = "";
 
+// Toon melding als account is gedeactiveerd
+if (isset($_GET['deactivated']) && $_GET['deactivated'] == '1') {
+    $melding = "Je account is succesvol gedeactiveerd. Je modelprofiel is niet meer zichtbaar op de modellen-overzicht pagina.";
+}
+
+// Handle account deactiveren
+if (isset($_GET['action']) && $_GET['action'] === 'deactivate_account') {
+    if (isset($_GET['confirm']) && $_GET['confirm'] === 'yes') {
+        // Zet Status op 'deactivated' in Modelen tabel
+        if ($model['Profiel_ID']) {
+            $deactivateModel = "UPDATE Modelen SET Status = 'deactivated' WHERE User_ID = :user_id";
+            $stmt = $conn->prepare($deactivateModel);
+            $stmt->execute(['user_id' => $user_id]);
+        } else {
+            // Als er nog geen modelprofiel is, maak er een aan met status deactivated
+            $insert = "INSERT INTO Modelen (User_ID, Status) VALUES (:user_id, 'deactivated')";
+            $stmt = $conn->prepare($insert);
+            $stmt->execute(['user_id' => $user_id]);
+        }
+        
+        // Redirect terug naar profiel pagina met melding
+        header('Location: profiel_bewerken.php?deactivated=1');
+        exit;
+    }
+}
+
 // Handle account verwijderen
 if (isset($_GET['action']) && $_GET['action'] === 'delete_account') {
     if (isset($_GET['confirm']) && $_GET['confirm'] === 'yes') {

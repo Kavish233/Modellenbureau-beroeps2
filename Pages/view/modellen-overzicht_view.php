@@ -5,6 +5,7 @@
     <title>Modellen Overzicht</title>
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/main.css">
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/modellen-overzicht.css">
+    <script src="/beroeps/Modellenbureau/Script/menu.js" defer></script>
 </head>
 <body>
 

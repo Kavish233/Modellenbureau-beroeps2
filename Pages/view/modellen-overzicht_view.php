@@ -1,8 +1,12 @@
+<?php
+$uploadsPath = "/beroeps/Modellenbureau/Pages/uploads/";
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Modellen Overzicht</title>
+    <title>Modellen zoeken</title>
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/main.css">
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/modellen-overzicht.css">
     <script src="/beroeps/Modellenbureau/Script/menu.js" defer></script>
@@ -64,35 +68,42 @@
             <?php foreach ($modellen as $model): ?>
 
                 <?php
-                // Foto pad + fallback (jouw versie, maar netjes)
-                $fotoPad = (!empty($model['Foto']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/beroeps/Modellenbureau/Pages/' . $model['Foto']))
-                    ? '/beroeps/Modellenbureau/Pages/' . htmlspecialchars($model['Foto'])
-                    : '/beroeps/Modellenbureau/Pages/uploads/placeholder.jpg';
+                // Jij hebt uploadsPath al in je PHP gezet:
+                // $uploadsPath = "/beroeps/Modellenbureau/Pages/uploads/";
 
-                // Naam die je op de kaart wilt tonen:
-                // Kies wat jij wilt: Beschrijving of later Voornaam/Achternaam.
+                // In DB kan Foto een bestandsnaam zijn of (sub)pad.
+                // We bouwen een browser-url + checken of het bestand echt bestaat:
+                $fotoRel = $model['Foto'] ?? '';
+
+                if (!empty($fotoRel) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/beroeps/Modellenbureau/Pages/' . $fotoRel)) {
+                    $fotoUrl = '/beroeps/Modellenbureau/Pages/' . htmlspecialchars($fotoRel);
+                } else {
+                    $fotoUrl = $uploadsPath . 'placeholder.jpg';
+                }
+
+                // Tekst onder foto (gebruik Beschrijving als "naam" zoals je voorbeeld)
                 $kaartNaam = $model['Beschrijving'] ?? 'Model';
                 ?>
 
                 <div class="model-tile">
                     <div class="model-image">
-                        <img src="<?= $fotoPad ?>" alt="Model foto">
+                        <img src="<?= $fotoUrl ?>" alt="Model foto">
                     </div>
 
                     <div class="model-name">
                         <?= htmlspecialchars($kaartNaam) ?>
                     </div>
 
-                    <a class="model-btn" href="model-profiel.php?id=<?= (int)$model['Profiel_ID'] ?>">
+                    <a class="model-btn" href="modellen-detail.php?id=<?= (int)$model['Profiel_ID'] ?>">
                         Bekijk profiel
                     </a>
+
                 </div>
 
             <?php endforeach; ?>
         </div>
     <?php endif; ?>
 </div>
-
 
 </body>
 </html>

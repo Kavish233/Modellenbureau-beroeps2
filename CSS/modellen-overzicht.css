@@ -1,11 +1,17 @@
-/* PAGINA LOOK */
-body {
+/* =========================
+   Modellen zoeken - scoped CSS
+   (maakt de kaartjes exact zoals in je voorbeeld)
+   ========================= */
+
+/* Pagina achtergrond */
+html, body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    padding: 0;
     background: #B19145;
+    font-family: Arial, sans-serif;
 }
 
-/* container onder je header */
+/* Container */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -13,84 +19,40 @@ body {
     box-sizing: border-box;
 }
 
-/* titel zoals gouden pagina */
+/* Titel */
 .container h1 {
     margin: 0 0 18px 0;
-    color: #ffffff;
+    color: #fff;
     font-size: 56px;
     font-weight: 300;
 }
 
-/* tekst als er niks is */
+/* Lege state */
 .container > p {
-    color: #ffffff;
+    color: #fff;
     font-size: 18px;
+    margin: 0;
 }
 
-/* GRID zoals kaartjes */
-.models-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 26px;
-    align-items: start;
+/* =========================
+   GRID
+   ========================= */
+.container .models-grid {
+    /* als main.css dit overschrijft, wint dit door !important */
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 26px !important;
+    align-items: start !important;
 }
 
-/* KAARTJE */
-.model-tile {
-    background: #E3D6B4;
-    border-radius: 16px;
-    padding: 14px;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
-    text-align: center;
-}
-
-/* FOTO BOVENIN (donkere rand zoals voorbeeld) */
-.model-image {
-    border-radius: 12px;
-    overflow: hidden;
-    background: #2f3e46;
-    margin-bottom: 12px;
-}
-
-.model-image img {
-    width: 100%;
-    height: 170px;
-    object-fit: cover;
-    display: block;
-}
-
-/* NAAM */
-.model-name {
-    font-size: 16px;
-    font-weight: 500;
-    color: #000;
-    margin: 8px 0 10px;
-}
-
-/* BEKIJK PROFIEL knop */
-.model-btn {
-    display: block;
-    width: 100%;
-    background: #EFE7CF;
-    border-radius: 12px;
-    padding: 8px 0;
-    font-size: 14px;
-    text-decoration: none;
-    color: #000;
-    transition: filter 0.2s;
-}
-
-.model-btn:hover {
-    filter: brightness(0.96);
-}
-
-/* RESPONSIVE */
+/* tablet */
 @media (max-width: 1000px) {
-    .models-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .container .models-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
 }
 
+/* mobiel */
 @media (max-width: 600px) {
     .container {
         padding: 18px 16px 50px;
@@ -98,9 +60,92 @@ body {
 
     .container h1 {
         font-size: 40px;
+        margin-bottom: 14px;
     }
 
-    .models-grid {
-        grid-template-columns: 1fr;
+    .container .models-grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+    }
+}
+
+/* =========================
+   CARD RESET (tegen main.css)
+   ========================= */
+.container .model-tile,
+.container .model-tile * {
+    box-sizing: border-box;
+}
+
+/* Kaart */
+.container .model-tile {
+    background: #E3D6B4 !important;
+    border-radius: 16px !important;
+    padding: 14px !important;
+    text-align: center !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18) !important;
+    border: 1px solid rgba(0,0,0,0.10) !important;
+    overflow: hidden; /* zorgt dat niks buiten de kaart valt */
+}
+
+/* Afbeelding wrapper */
+.container .model-tile .model-image {
+    background: #2f3e46 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    margin: 0 0 12px 0 !important;
+}
+
+/* Afbeelding zelf (force) */
+.container .model-tile .model-image img {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 170px !important;
+    object-fit: cover !important;
+    border: 0 !important;
+}
+
+/* Naam */
+.container .model-tile .model-name {
+    margin: 8px 0 10px 0 !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    color: #000 !important;
+
+    /* als main.css rare text styles doet */
+    text-decoration: none !important;
+}
+
+/* Link als button (reset alle a-styles) */
+.container .model-tile a.model-btn {
+    display: block !important;
+    width: 100% !important;
+
+    background: #EFE7CF !important;
+    border-radius: 12px !important;
+    padding: 8px 0 !important;
+
+    color: #000 !important;
+    text-decoration: none !important;
+
+    border: 1px solid rgba(0,0,0,0.10) !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 1.2 !important;
+
+    /* reset */
+    outline: none !important;
+}
+
+/* Hover */
+.container .model-tile a.model-btn:hover {
+    filter: brightness(0.96) !important;
+}
+
+/* Mobiel: iets lagere foto */
+@media (max-width: 600px) {
+    .container .model-tile .model-image img {
+        height: 200px !important;
     }
 }

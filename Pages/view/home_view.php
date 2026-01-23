@@ -15,21 +15,26 @@
     <nav class="nav">
         <!-- Desktop links -->
         <div class="nav-left">
-            <a href="#">Home</a>
+            <a href="/beroeps/Modellenbureau/Pages/home.php">Home</a>
             <a href="/beroeps/Modellenbureau/Pages/inschrijf.php">Inschrijven</a>
-            <a href="#">Modellen zoeken</a>
+            <a href="/beroeps/Modellenbureau/Pages/modellen-overzicht.php">Modellen zoeken</a>
         </div>
+
+        <?php
+        $initial = strtoupper($user['naam'][0] ?? 'P'); // eerste letter van naam, anders 'P'
+        ?>
 
         <!-- Desktop rechts -->
         <div class="nav-right">
             <a href="/beroeps/Modellenbureau/Pages/profiel_bewerken.php" style="text-decoration: none;">
                 <div class="profile-circle">
-                    <?php if (!empty($profielFoto)): ?>
-                        <img src="/beroeps/Modellenbureau/Pages/<?= htmlspecialchars($profielFoto) ?>" alt="Profielfoto">
+                    <?php if (!empty($user['ProfielFoto'])): ?>
+                        <img src="/beroeps/Modellenbureau/Pages/<?= htmlspecialchars($user['ProfielFoto']) ?>" alt="Profielfoto">
                     <?php else: ?>
-                        P
+                        <?= $initial ?>
                     <?php endif; ?>
                 </div>
+
             </a>
         </div>
 
@@ -50,9 +55,9 @@
 
     <!-- Mobile menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#">Home</a>
+        <a href="/beroeps/Modellenbureau/Pages/home.php">Home</a>
         <a href="/beroeps/Modellenbureau/Pages/inschrijf.php">Inschrijven</a>
-        <a href="#">Modellen zoeken</a>
+        <a href="/beroeps/Modellenbureau/Pages/modellen-overzicht.php">Modellen zoeken</a>
     </div>
 </header>
 

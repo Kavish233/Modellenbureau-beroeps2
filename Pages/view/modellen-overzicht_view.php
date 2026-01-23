@@ -48,41 +48,51 @@
 
     <!-- Mobile menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#">Home</a>
-        <a href="#">Inschrijven</a>
-        <a href="#">Modellen zoeken</a>
+        <a href="home.php">Home</a>
+        <a href="inschrijf.php">Inschrijven</a>
+        <a href="modellen-overzicht.php">Modellen zoeken</a>
     </div>
 </header>
 
 <div class="container">
-    <h1>Modellen Overzicht</h1>
+    <h1>Modellen zoeken</h1>
 
     <?php if (empty($modellen)): ?>
         <p>Geen modellen gevonden.</p>
     <?php else: ?>
-        <?php foreach ($modellen as $model): ?>
-            <div class="model-card">
+        <div class="models-grid">
+            <?php foreach ($modellen as $model): ?>
 
                 <?php
-                // Controleer of er een foto is, anders fallback
+                // Foto pad + fallback (jouw versie, maar netjes)
                 $fotoPad = (!empty($model['Foto']) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/beroeps/Modellenbureau/Pages/' . $model['Foto']))
                     ? '/beroeps/Modellenbureau/Pages/' . htmlspecialchars($model['Foto'])
                     : '/beroeps/Modellenbureau/Pages/uploads/placeholder.jpg';
-                ?>
-                <img src="<?= $fotoPad ?>" alt="Model foto">
 
-                <div class="model-info">
-                    <p><strong>Profiel ID:</strong> <?= htmlspecialchars($model['Profiel_ID']) ?></p>
-                    <p><strong>Beschrijving:</strong> <?= htmlspecialchars($model['Beschrijving']) ?></p>
-                    <p><strong>Leeftijd:</strong> <?= htmlspecialchars($model['Leeftijd']) ?></p>
-                    <p><strong>Lengte:</strong> <?= htmlspecialchars($model['Lengte']) ?> cm</p>
-                    <p><strong>Opleiding:</strong> <?= htmlspecialchars($model['Opleiding']) ?></p>
+                // Naam die je op de kaart wilt tonen:
+                // Kies wat jij wilt: Beschrijving of later Voornaam/Achternaam.
+                $kaartNaam = $model['Beschrijving'] ?? 'Model';
+                ?>
+
+                <div class="model-tile">
+                    <div class="model-image">
+                        <img src="<?= $fotoPad ?>" alt="Model foto">
+                    </div>
+
+                    <div class="model-name">
+                        <?= htmlspecialchars($kaartNaam) ?>
+                    </div>
+
+                    <a class="model-btn" href="model-profiel.php?id=<?= (int)$model['Profiel_ID'] ?>">
+                        Bekijk profiel
+                    </a>
                 </div>
 
-            </div>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        </div>
     <?php endif; ?>
 </div>
+
 
 </body>
 </html>

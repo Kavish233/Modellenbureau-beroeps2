@@ -100,9 +100,9 @@
 /* ===================== */
 @media (max-width: 768px) {
     .login-card {
-        width: 90%;        /* kleiner dan desktop */
+        width: 90%;
         padding: 35px;
-        min-height: 800px;
+        min-height: auto; /* of gewoon weglaten */
     }
 
     .login-card h2 {
@@ -122,10 +122,11 @@
 
 @media (max-width: 480px) {
     .login-card {
-        width: 95%;        /* bijna volle breedte mobiel */
-        padding: 25px;     /* kleine padding */
-        min-height: 350px;
+        width: 95%;
+        padding: 25px;
+        min-height: auto;
     }
+
 
     .login-card h2 {
         font-size: 1.4rem;

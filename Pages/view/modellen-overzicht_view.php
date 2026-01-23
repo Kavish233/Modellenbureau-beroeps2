@@ -94,9 +94,10 @@ $uploadsPath = "/beroeps/Modellenbureau/Pages/uploads/";
                         <?= htmlspecialchars($kaartNaam) ?>
                     </div>
 
-                    <a class="model-btn" href="model-profiel.php?id=<?= (int)$model['Profiel_ID'] ?>">
+                    <a class="model-btn" href="modellen-detail.php?id=<?= (int)$model['Profiel_ID'] ?>">
                         Bekijk profiel
                     </a>
+
                 </div>
 
             <?php endforeach; ?>

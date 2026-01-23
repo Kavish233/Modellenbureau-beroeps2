@@ -4,11 +4,25 @@ require 'config.php'; // Zorg dat $conn hier staat
 
 $melding = "";
 
+$prefillEmail = '';
+$prefillName = '';
+
+// Prefill vanuit inschrijf.php (1x gebruiken)
+if (!empty($_SESSION['registreren_prefill']) && is_array($_SESSION['registreren_prefill'])) {
+    $prefillEmail = trim($_SESSION['registreren_prefill']['email'] ?? '');
+    $prefillName = trim($_SESSION['registreren_prefill']['name'] ?? '');
+    unset($_SESSION['registreren_prefill']);
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $naam = trim($_POST['name']);
     $email = trim($_POST['email']);
     $studentennummer = trim($_POST['studentnummer']);
     $wachtwoord = $_POST['password'];
+
+    // Als POST faalt, behoud ingevulde waarden in form
+    $prefillEmail = $email;
+    $prefillName = $naam;
 
     // Controleer of alle velden zijn ingevuld
     if (!empty($naam) && !empty($email) && !empty($studentennummer) && !empty($wachtwoord)) {

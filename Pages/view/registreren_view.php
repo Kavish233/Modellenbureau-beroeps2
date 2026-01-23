@@ -17,12 +17,12 @@
         <form action="registreren.php" method="post">
             <div class="form-group">
                 <label for="email">E-mailadres</label>
-                <input type="email" id="email" name="email" placeholder="Voer je e-mail in" required>
+                <input type="email" id="email" name="email" placeholder="Voer je e-mail in" value="<?= htmlspecialchars($prefillEmail ?? '') ?>" required>
             </div>
 
             <div class="form-group">
                 <label for="name">Naam</label>
-                <input type="text" id="name" name="name" placeholder="Voer je naam in" required>
+                <input type="text" id="name" name="name" placeholder="Voer je naam in" value="<?= htmlspecialchars($prefillName ?? '') ?>" required>
             </div>
 
             <div class="form-group">

@@ -1,100 +1,106 @@
-/* ========== PAGE BASE ========== */
+/* PAGINA LOOK */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #B19145; /* goud achtergrond */
+    background: #B19145;
 }
 
-/* ========== LAYOUT CONTAINER ========== */
+/* container onder je header */
 .container {
-    max-width: 1200px;          /* breder */
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 28px 36px 60px;    /* meer ruimte boven/links */
+    padding: 26px 30px 60px;
     box-sizing: border-box;
 }
 
-/* ========== TITLE ========== */
+/* titel zoals gouden pagina */
 .container h1 {
-    margin: 0 0 26px 0;
+    margin: 0 0 18px 0;
     color: #ffffff;
-    font-size: 58px;       /* groter zoals screenshot */
-    font-weight: 300;      /* dunner */
-    letter-spacing: 0.2px;
+    font-size: 56px;
+    font-weight: 300;
 }
 
-/* “Geen modellen gevonden” tekst */
+/* tekst als er niks is */
 .container > p {
-    color: #fff;
+    color: #ffffff;
     font-size: 18px;
 }
 
-/* ========== MODEL CARD ========== */
-.model-card {
-    display: flex;
-    align-items: flex-start;
+/* GRID zoals kaartjes */
+.models-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 26px;
-
-    background: #E3D6B4;      /* kaartkleur */
-    border-radius: 18px;       /* ronder */
-    padding: 22px 26px;        /* meer padding */
-    margin: 0 0 26px 0;        /* meer ruimte tussen kaarten */
-
-    border: 2px solid rgba(0,0,0,0.08);
-    box-shadow: 0 10px 26px rgba(0,0,0,0.18); /* zachtere grote schaduw */
+    align-items: start;
 }
 
-/* ========== IMAGE ========== */
-.model-card img {
-    width: 165px;
-    height: 220px;
+/* KAARTJE */
+.model-tile {
+    background: #E3D6B4;
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+    text-align: center;
+}
+
+/* FOTO BOVENIN (donkere rand zoals voorbeeld) */
+.model-image {
+    border-radius: 12px;
+    overflow: hidden;
+    background: #2f3e46;
+    margin-bottom: 12px;
+}
+
+.model-image img {
+    width: 100%;
+    height: 170px;
     object-fit: cover;
-    border-radius: 16px;       /* ronder zoals screenshot */
-    background: #d9d9d9;
-    flex-shrink: 0;
     display: block;
 }
 
-/* ========== INFO ========== */
-.model-info {
+/* NAAM */
+.model-name {
+    font-size: 16px;
+    font-weight: 500;
     color: #000;
-    font-size: 18px;   /* iets groter */
-    line-height: 1.6;
-    padding-top: 6px;  /* tekst iets lager */
+    margin: 8px 0 10px;
 }
 
-/* regels */
-.model-info p {
-    margin: 6px 0;
+/* BEKIJK PROFIEL knop */
+.model-btn {
+    display: block;
+    width: 100%;
+    background: #EFE7CF;
+    border-radius: 12px;
+    padding: 8px 0;
+    font-size: 14px;
+    text-decoration: none;
+    color: #000;
+    transition: filter 0.2s;
 }
 
-/* labels */
-.model-info strong {
-    font-weight: 700;
+.model-btn:hover {
+    filter: brightness(0.96);
 }
 
-/* ========== RESPONSIVE ========== */
-@media (max-width: 900px) {
+/* RESPONSIVE */
+@media (max-width: 1000px) {
+    .models-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
     .container {
-        padding: 22px 18px 50px;
+        padding: 18px 16px 50px;
     }
 
     .container h1 {
-        font-size: 42px;
+        font-size: 40px;
     }
 
-    .model-card {
-        flex-direction: column;
-        gap: 14px;
-        padding: 18px;
-    }
-
-    .model-card img {
-        width: 100%;
-        max-width: 320px;
-        height: auto;
-    }
-
-    .model-info {
-        font-size: 16px;
+    .models-grid {
+        grid-template-columns: 1fr;
     }
 }

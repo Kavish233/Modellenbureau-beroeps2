@@ -9,6 +9,50 @@
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/main.css">
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/home.css">
     <script src="/beroeps/Modellenbureau/Script/menu.js" defer></script>
+    <script>
+        let slideIndex = 1;
+        
+        function showSlide(n) {
+            const slides = document.getElementsByClassName("slide");
+            const dots = document.getElementsByClassName("dot");
+            
+            if (n > slides.length) { slideIndex = 1; }
+            if (n < 1) { slideIndex = slides.length; }
+            
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove("active");
+            }
+            
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].classList.remove("active");
+            }
+            
+            if (slides[slideIndex - 1]) {
+                slides[slideIndex - 1].classList.add("active");
+            }
+            if (dots[slideIndex - 1]) {
+                dots[slideIndex - 1].classList.add("active");
+            }
+        }
+        
+        function changeSlide(n) {
+            showSlide(slideIndex += n);
+        }
+        
+        function currentSlide(n) {
+            showSlide(slideIndex = n);
+        }
+        
+        // Auto-advance slideshow elke 5 seconden
+        setInterval(function() {
+            changeSlide(1);
+        }, 5000);
+        
+        // Initialiseer slideshow bij page load
+        document.addEventListener('DOMContentLoaded', function() {
+            showSlide(slideIndex);
+        });
+    </script>
 </head>
 <body>
 <header>
@@ -130,8 +174,53 @@
     </div>
 </section>
 
-<section>
+<section class="featured-models-section">
     <h2 class="section-title">Uitgelichte modellen</h2>
+    
+    <?php if (!empty($featuredModels)): ?>
+        <div class="models-slideshow">
+            <div class="slideshow-container">
+                <?php foreach ($featuredModels as $index => $model): ?>
+                    <?php
+                    // Foto pad bepalen
+                    $fotoRel = $model['Foto'] ?? '';
+                    if (!empty($fotoRel) && file_exists($_SERVER['DOCUMENT_ROOT'] . '/beroeps/Modellenbureau/Pages/' . $fotoRel)) {
+                        $fotoUrl = '/beroeps/Modellenbureau/Pages/' . htmlspecialchars($fotoRel);
+                    } else {
+                        $fotoUrl = $uploadsPath . 'placeholder.jpg';
+                    }
+                    $kaartNaam = $model['Beschrijving'] ?? 'Model';
+                    ?>
+                    <div class="slide <?= $index === 0 ? 'active' : '' ?>">
+                        <div class="model-tile">
+                            <div class="model-image">
+                                <img src="<?= $fotoUrl ?>" alt="Model foto">
+                            </div>
+                            <div class="model-name">
+                                <?= htmlspecialchars($kaartNaam) ?>
+                            </div>
+                            <a class="model-btn" href="/beroeps/Modellenbureau/Pages/modellen-detail.php?id=<?= (int)$model['Profiel_ID'] ?>">
+                                Bekijk profiel
+                            </a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            
+            <!-- Navigatie pijlen -->
+            <button class="slideshow-btn prev" onclick="changeSlide(-1)">❮</button>
+            <button class="slideshow-btn next" onclick="changeSlide(1)">❯</button>
+            
+            <!-- Dots indicator -->
+            <div class="slideshow-dots">
+                <?php foreach ($featuredModels as $index => $model): ?>
+                    <span class="dot <?= $index === 0 ? 'active' : '' ?>" onclick="currentSlide(<?= $index + 1 ?>)"></span>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    <?php else: ?>
+        <p style="text-align: center; color: white; padding: 20px;">Geen modellen beschikbaar.</p>
+    <?php endif; ?>
 </section>
 
 <footer class="site-footer">

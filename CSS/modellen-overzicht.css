@@ -143,6 +143,46 @@ html, body {
     filter: brightness(0.96) !important;
 }
 
+/* Verwijder knop (alleen voor docenten) */
+.container .model-tile .model-btn-delete {
+    display: block !important;
+    width: 100% !important;
+    margin-top: 8px !important;
+
+    background: #D11B1B !important;
+    border-radius: 12px !important;
+    padding: 8px 0 !important;
+
+    color: #fff !important;
+    text-decoration: none !important;
+
+    border: 1px solid rgba(0,0,0,0.10) !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 1.2 !important;
+    cursor: pointer !important;
+
+    /* reset */
+    outline: none !important;
+}
+
+/* Hover verwijder knop */
+.container .model-tile .model-btn-delete:hover {
+    filter: brightness(0.90) !important;
+}
+
+/* Success melding */
+.success-msg {
+    background: #f0f9f0;
+    border: 1px solid rgba(0,128,0,0.4);
+    color: #006600;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 18px;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
 /* Mobiel: iets lagere foto */
 @media (max-width: 600px) {
     .container .model-tile .model-image img {

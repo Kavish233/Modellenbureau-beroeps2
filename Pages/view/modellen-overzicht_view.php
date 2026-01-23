@@ -98,6 +98,12 @@ $uploadsPath = "/beroeps/Modellenbureau/Pages/uploads/";
                         Bekijk profiel
                     </a>
 
+                    <?php if ($isDocent): ?>
+                        <button class="model-btn-delete" onclick="if(confirm('⚠️ Model verwijderen\n\nWeet je zeker dat je dit model wilt verwijderen?\n\n• Dit modelprofiel wordt permanent verwijderd\n• Deze actie kan niet ongedaan worden gemaakt\n\nWeet je zeker dat je door wilt gaan?')) { window.location.href='modellen-overzicht.php?action=delete_model&confirm=yes&id=<?= (int)$model['Profiel_ID'] ?>'; }">
+                            Verwijder model
+                        </button>
+                    <?php endif; ?>
+
                 </div>
 
             <?php endforeach; ?>

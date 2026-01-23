@@ -35,8 +35,15 @@ header {
     height: 60px;
     border-radius: 50%;
     overflow: hidden;
-    flex-shrink: 0;
+    background-color: #555;  /* grijs als achtergrond */
+    color: white;
+    display: flex;
+    justify-content: center;  /* horizontaal centreren */
+    align-items: center;      /* verticaal centreren */
+    font-weight: bold;
+    font-size: 16px;          /* pas aan als je wilt */
 }
+
 
 
 

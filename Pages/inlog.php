@@ -17,6 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (strlen($naam) > 0 && strlen($wachtwoord) > 0) {
         $wwhash = sha1($wachtwoord);
+        
+        // Probeer eerst met SHA1 hash
         $query = "SELECT * FROM USERS WHERE Email= :nm AND wachtwoord= :pw";
         $stmt = $conn->prepare($query);
         $stmt->execute([
@@ -25,6 +27,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ]);
 
         $resultaten = $stmt->fetchAll();
+
+        // Als SHA1 niet werkt, probeer plain text (voor backwards compatibility)
+        if (count($resultaten) == 0) {
+            $query = "SELECT * FROM USERS WHERE Email= :nm AND wachtwoord= :pw";
+            $stmt = $conn->prepare($query);
+            $stmt->execute([
+                ':nm' => $naam,
+                ':pw' => $wachtwoord  // Plain text
+            ]);
+            
+            $resultaten = $stmt->fetchAll();
+            
+            // Als plain text werkt, update het wachtwoord naar SHA1 hash
+            if (count($resultaten) > 0) {
+                $updateQuery = "UPDATE USERS SET wachtwoord = :wwhash WHERE Email = :nm";
+                $updateStmt = $conn->prepare($updateQuery);
+                $updateStmt->execute([
+                    ':wwhash' => $wwhash,
+                    ':nm' => $naam
+                ]);
+            }
+        }
 
         if (count($resultaten) > 0) {
             $_SESSION['naam'] = $naam;

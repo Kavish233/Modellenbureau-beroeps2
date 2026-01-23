@@ -166,3 +166,81 @@ body {
     }
 }
 
+/* ===== HARD OVERRIDES (tegen main.css) ===== */
+
+/* Grid altijd grid */
+body .container .models-grid{
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 26px !important;
+}
+
+/* Kaart altijd kaart */
+body .container .models-grid .model-tile{
+    background: #E3D6B4 !important;
+    border-radius: 16px !important;
+    padding: 14px !important;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18) !important;
+    text-align: center !important;
+}
+
+/* Image wrapper */
+body .container .models-grid .model-tile .model-image{
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    background: #2f3e46 !important;
+    margin-bottom: 12px !important;
+}
+
+/* IMG reset: forceer vaste hoogte + cover */
+body .container .models-grid .model-tile .model-image img{
+    width: 100% !important;
+    height: 170px !important;
+    object-fit: cover !important;
+    display: block !important;
+    max-width: 100% !important;
+}
+
+/* Naam */
+body .container .models-grid .model-tile .model-name{
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    color: #000 !important;
+    margin: 8px 0 10px !important;
+}
+
+/* Link moet eruit zien als knop (reset alle global <a> styles) */
+body .container .models-grid .model-tile a.model-btn{
+    display: block !important;
+    width: 100% !important;
+    background: #EFE7CF !important;
+    border-radius: 12px !important;
+    padding: 8px 0 !important;
+
+    color: #000 !important;
+    text-decoration: none !important;
+
+    border: 1px solid rgba(0,0,0,0.10) !important;
+    font-size: 14px !important;
+
+    /* reset als main.css rare dingen doet */
+    line-height: normal !important;
+}
+
+/* Hover */
+body .container .models-grid .model-tile a.model-btn:hover{
+    filter: brightness(0.96) !important;
+}
+
+/* Responsive: mobiel 1 kolom, tablet 2 */
+@media (max-width: 1000px){
+    body .container .models-grid{
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+@media (max-width: 600px){
+    body .container .models-grid{
+        grid-template-columns: 1fr !important;
+    }
+}
+

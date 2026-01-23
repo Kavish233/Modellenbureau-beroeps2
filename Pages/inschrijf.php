@@ -14,7 +14,7 @@ if (isset($_SESSION['naam'])) {
 }
 
 // Include altijd het formulier view
-include "view/inschrijf_view.php";
+
 
 $melding = ""; // Om fouten te tonen
 
@@ -90,4 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (!empty($melding)) {
     echo "<p style='color:red;'>$melding</p>";
 }
+
+include "view/inschrijf_view.php";
 ?>

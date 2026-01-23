@@ -31,9 +31,13 @@ header {
 }
 
 .nav-right .profile-circle {
-    overflow: hidden;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
 }
+
 
 
 .nav-right .profile-circle img {

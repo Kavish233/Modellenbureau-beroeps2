@@ -48,9 +48,9 @@
 
     <!-- Mobile menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#">Home</a>
-        <a href="#">Inschrijven</a>
-        <a href="#">Modellen zoeken</a>
+        <a href="home.php">Home</a>
+        <a href="inschrijf.php">Inschrijven</a>
+        <a href="modellen-overzicht.php">Modellen zoeken</a>
     </div>
 </header>
 

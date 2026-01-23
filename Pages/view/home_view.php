@@ -50,9 +50,9 @@
 
     <!-- Mobile menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#">Home</a>
+        <a href="/beroeps/Modellenbureau/Pages/home.php">Home</a>
         <a href="/beroeps/Modellenbureau/Pages/inschrijf.php">Inschrijven</a>
-        <a href="#">Modellen zoeken</a>
+        <a href="/beroeps/Modellenbureau/Pages/modellen-overzicht_view.php">Modellen zoeken</a>
     </div>
 </header>
 

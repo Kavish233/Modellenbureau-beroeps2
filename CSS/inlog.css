@@ -95,6 +95,11 @@
     text-decoration: underline;
 }
 
+.login-page {
+    min-height: 100vh;
+}
+
+
 /* ===================== */
 /* MOBILE / TABLET        */
 /* ===================== */

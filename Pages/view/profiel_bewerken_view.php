@@ -84,7 +84,11 @@
                 
                 <div class="divider"></div>
                 
-                <button type="button" class="btnMini" onclick="if(confirm('⚠️ Account deactiveren\n\nWeet je zeker dat je je account wilt deactiveren?\n\n• Je modelprofiel zal niet meer zichtbaar zijn op de modellen-overzicht pagina\n• Je kunt later altijd je account weer activeren\n• Je blijft ingelogd en kunt je profiel bewerken')) { window.location.href='profiel_bewerken.php?action=deactivate_account&confirm=yes'; }">Account deactiveren</button>
+                <?php if ($isDeactivated): ?>
+                    <button type="button" class="btnMini btnActivate" onclick="if(confirm('✓ Account activeren\n\nWeet je zeker dat je je account wilt activeren?\n\n• Je modelprofiel wordt weer zichtbaar op de modellen-overzicht pagina\n• Je status wordt teruggezet naar pending')) { window.location.href='profiel_bewerken.php?action=activate_account&confirm=yes'; }">Account activeren</button>
+                <?php else: ?>
+                    <button type="button" class="btnMini" onclick="if(confirm('⚠️ Account deactiveren\n\nWeet je zeker dat je je account wilt deactiveren?\n\n• Je modelprofiel zal niet meer zichtbaar zijn op de modellen-overzicht pagina\n• Je kunt later altijd je account weer activeren\n• Je blijft ingelogd en kunt je profiel bewerken')) { window.location.href='profiel_bewerken.php?action=deactivate_account&confirm=yes'; }">Account deactiveren</button>
+                <?php endif; ?>
                 
                 <button type="button" class="btnMini" onclick="if(confirm('🗑️ Account verwijderen\n\nWAARSCHUWING: Deze actie kan NIET ongedaan worden gemaakt!\n\n• Je account en alle gegevens worden permanent verwijderd\n• Je modelprofiel wordt verwijderd\n• Je wordt uitgelogd\n\nWeet je zeker dat je door wilt gaan?')) { window.location.href='profiel_bewerken.php?action=delete_account&confirm=yes'; }">Account verwijderen</button>
                 

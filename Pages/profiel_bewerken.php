@@ -38,7 +38,8 @@ if (!$model) {
         'Beschrijving' => '',
         'Leeftijd' => null,
         'Lengte' => null,
-        'Opleiding' => ''
+        'Opleiding' => '',
+        'Status' => null
     ];
 }
 
@@ -48,6 +49,12 @@ $meldingType = ""; // 'ok' of 'err'
 // Toon melding als account is gedeactiveerd
 if (isset($_GET['deactivated']) && $_GET['deactivated'] == '1') {
     $melding = "✓ Je account is succesvol gedeactiveerd. Je modelprofiel is niet meer zichtbaar op de modellen-overzicht pagina.";
+    $meldingType = "ok";
+}
+
+// Toon melding als account is geactiveerd
+if (isset($_GET['activated']) && $_GET['activated'] == '1') {
+    $melding = "✓ Je account is succesvol geactiveerd. Je modelprofiel is weer zichtbaar op de modellen-overzicht pagina.";
     $meldingType = "ok";
 }
 
@@ -68,6 +75,27 @@ if (isset($_GET['action']) && $_GET['action'] === 'deactivate_account') {
         
         // Redirect terug naar profiel pagina met melding
         header('Location: profiel_bewerken.php?deactivated=1');
+        exit;
+    }
+}
+
+// Handle account activeren
+if (isset($_GET['action']) && $_GET['action'] === 'activate_account') {
+    if (isset($_GET['confirm']) && $_GET['confirm'] === 'yes') {
+        // Zet Status op 'pending' in Modelen tabel
+        if ($model['Profiel_ID']) {
+            $activateModel = "UPDATE Modelen SET Status = 'pending' WHERE User_ID = :user_id";
+            $stmt = $conn->prepare($activateModel);
+            $stmt->execute(['user_id' => $user_id]);
+        } else {
+            // Als er nog geen modelprofiel is, maak er een aan met status pending
+            $insert = "INSERT INTO Modelen (User_ID, Status) VALUES (:user_id, 'pending')";
+            $stmt = $conn->prepare($insert);
+            $stmt->execute(['user_id' => $user_id]);
+        }
+        
+        // Redirect terug naar profiel pagina met melding
+        header('Location: profiel_bewerken.php?activated=1');
         exit;
     }
 }
@@ -173,6 +201,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: profiel_bewerken.php");
     exit;
 }
+
+// Herhaal model ophalen na eventuele updates (voor status)
+$sql = "SELECT * FROM Modelen WHERE User_ID = :user_id";
+$stmt = $conn->prepare($sql);
+$stmt->execute(['user_id' => $user_id]);
+$model = $stmt->fetch();
+
+// Als er nog geen modelprofiel is, maak een lege array
+if (!$model) {
+    $model = [
+        'Profiel_ID' => null,
+        'Foto' => null,
+        'Beschrijving' => '',
+        'Leeftijd' => null,
+        'Lengte' => null,
+        'Opleiding' => '',
+        'Status' => null
+    ];
+}
+
+// Bepaal of account gedeactiveerd is
+$isDeactivated = isset($model['Status']) && $model['Status'] === 'rejected';
 
 // View laden met user en model data
 include "view/profiel_bewerken_view.php";

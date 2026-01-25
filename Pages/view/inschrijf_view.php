@@ -116,7 +116,7 @@
 
             <div class="form-group">
                 <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" value="<?= htmlspecialchars($email ?? '') ?>" readonly style="background: #f0f0f0; cursor: not-allowed;">
             </div>
 
             <button type="submit" class="submit-btn">Schrijf in</button>

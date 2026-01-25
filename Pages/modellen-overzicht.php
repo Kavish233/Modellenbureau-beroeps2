@@ -9,18 +9,22 @@ error_reporting(E_ALL);
 // Database connectie
 require 'config.php'; // Zorg dat $conn (PDO) hier beschikbaar is
 
-// Haal user data op voor profielfoto en rol (als ingelogd)
+// Check of gebruiker is ingelogd
+if (!isset($_SESSION['naam'])) {
+    header('Location: inlog.php');
+    exit;
+}
+
+// Haal user data op voor profielfoto en rol
 $profielFoto = null;
 $isDocent = false;
-if (isset($_SESSION['naam'])) {
-    $email = $_SESSION['naam'];
-    $sql = "SELECT ProfielFoto, rol FROM USERS WHERE Email = :email";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute(['email' => $email]);
-    $user = $stmt->fetch();
-    $profielFoto = $user['ProfielFoto'] ?? null;
-    $isDocent = ($user['rol'] ?? '') === 'docent';
-}
+$email = $_SESSION['naam'];
+$sql = "SELECT ProfielFoto, rol FROM USERS WHERE Email = :email";
+$stmt = $conn->prepare($sql);
+$stmt->execute(['email' => $email]);
+$user = $stmt->fetch();
+$profielFoto = $user['ProfielFoto'] ?? null;
+$isDocent = ($user['rol'] ?? '') === 'docent';
 
 // Handle verwijder model (alleen voor docenten)
 if ($isDocent && isset($_GET['action']) && $_GET['action'] === 'delete_model') {

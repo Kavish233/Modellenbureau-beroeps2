@@ -2,6 +2,12 @@
 session_start();
 require 'config.php';
 
+// Als gebruiker al ingelogd is, redirect naar home
+if (isset($_SESSION['naam'])) {
+    header('Location: home.php');
+    exit;
+}
+
 $resultaat = "";
 $isSuccess = false;
 

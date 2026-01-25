@@ -2,6 +2,12 @@
 session_start();
 require 'config.php'; // Zorg dat $conn hier staat
 
+// Als gebruiker al ingelogd is, redirect naar home
+if (isset($_SESSION['naam'])) {
+    header('Location: home.php');
+    exit;
+}
+
 $melding = "";
 
 $prefillEmail = '';

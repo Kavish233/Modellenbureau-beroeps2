@@ -2,16 +2,19 @@
 session_start();
 require 'config.php'; // PDO $conn
 
-// Haal user data op voor profielfoto (als ingelogd)
-$profielFoto = null;
-if (isset($_SESSION['naam'])) {
-    $email = $_SESSION['naam'];
-    $sql = "SELECT ProfielFoto FROM USERS WHERE Email = :email";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute(['email' => $email]);
-    $user = $stmt->fetch();
-    $profielFoto = $user['ProfielFoto'] ?? null;
+// Check of gebruiker is ingelogd
+if (!isset($_SESSION['naam'])) {
+    header('Location: inlog.php');
+    exit;
 }
+
+// Haal user data op voor profielfoto
+$email = $_SESSION['naam'];
+$sql = "SELECT ProfielFoto FROM USERS WHERE Email = :email";
+$stmt = $conn->prepare($sql);
+$stmt->execute(['email' => $email]);
+$user = $stmt->fetch();
+$profielFoto = $user['ProfielFoto'] ?? null;
 
 // Include altijd het formulier view
 
@@ -19,32 +22,22 @@ if (isset($_SESSION['naam'])) {
 $melding = ""; // Om fouten te tonen
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Email komt uit sessie (gebruiker is al ingelogd)
+    $email = $_SESSION['naam'];
+    
+    // 1️⃣ Controleer of de gebruiker bestaat in USERS
+    $stmt = $conn->prepare("SELECT * FROM USERS WHERE Email = :email");
+    $stmt->execute([':email' => $email]);
+    $gebruiker = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $email = trim($_POST['email'] ?? '');
+    if (!$gebruiker) {
+        // Als gebruiker niet bestaat, log uit en redirect naar inlog
+        session_destroy();
+        header("Location: inlog.php");
+        exit();
+    }
 
-    if (empty($email)) {
-        $melding = "Vul je e-mailadres in.";
-    } else {
-        // 1️⃣ Controleer of de gebruiker bestaat in USERS
-        $stmt = $conn->prepare("SELECT * FROM USERS WHERE Email = :email");
-        $stmt->execute([':email' => $email]);
-        $gebruiker = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if (!$gebruiker) {
-            // Geen account → redirect naar registratiepagina
-            $voornaam = trim($_POST['voornaam'] ?? '');
-            $achternaam = trim($_POST['achternaam'] ?? '');
-            $naam = trim(($voornaam . ' ' . $achternaam));
-
-            $_SESSION['registreren_prefill'] = [
-                'email' => $email,
-                'name' => $naam,
-            ];
-            header("Location: registreren.php");
-            exit();
-        }
-
-        $user_id = $gebruiker['User_ID'];
+    $user_id = $gebruiker['User_ID'];
 
         // 2️⃣ Controleer of er al een modelprofiel bestaat
         $stmt = $conn->prepare("SELECT * FROM Modelen WHERE User_ID = :user_id");

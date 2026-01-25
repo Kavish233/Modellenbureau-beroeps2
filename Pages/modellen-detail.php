@@ -6,16 +6,20 @@ error_reporting(E_ALL);
 
 require 'config.php'; // PDO: $conn
 
-// (optioneel) profielfoto rechtsboven in nav ophalen (zoals in je andere pagina)
-$profielFoto = null;
-if (isset($_SESSION['naam'])) {
-    $email = $_SESSION['naam'];
-    $sql = "SELECT ProfielFoto FROM USERS WHERE Email = :email";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute(['email' => $email]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    $profielFoto = $user['ProfielFoto'] ?? null;
+// Check of gebruiker is ingelogd
+if (!isset($_SESSION['naam'])) {
+    header('Location: inlog.php');
+    exit;
 }
+
+// Profielfoto rechtsboven in nav ophalen
+$profielFoto = null;
+$email = $_SESSION['naam'];
+$sql = "SELECT ProfielFoto FROM USERS WHERE Email = :email";
+$stmt = $conn->prepare($sql);
+$stmt->execute(['email' => $email]);
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$profielFoto = $user['ProfielFoto'] ?? null;
 
 // ID uit URL
 $id = (int)($_GET['id'] ?? 0);

@@ -36,12 +36,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $user_id = $gebruiker['User_ID'];
 
-    // 2️⃣ Controleer of er al een modelprofiel bestaat
-    $stmt = $conn->prepare("SELECT * FROM Modelen WHERE User_ID = :user_id");
+    // 2️⃣ Controleer of er al een volledig modelprofiel bestaat (met leeftijd en lengte)
+    // Dit voorkomt dat lege profielen die via profiel_bewerken zijn aangemaakt worden geteld
+    // Een volledig profiel heeft minimaal leeftijd en lengte (verplichte velden in inschrijf formulier)
+    $stmt = $conn->prepare("SELECT * FROM Modelen WHERE User_ID = :user_id AND Leeftijd IS NOT NULL AND Lengte IS NOT NULL");
     $stmt->execute([':user_id' => $user_id]);
-    if ($stmt->rowCount() > 0) {
+    $bestaandProfiel = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if ($bestaandProfiel) {
         $melding = "Je hebt al een modelprofiel aangemaakt!";
     } else {
+        // Als er een leeg profiel bestaat (aangemaakt via profiel_bewerken zonder leeftijd/lengte), verwijder het eerst
+        $stmt = $conn->prepare("DELETE FROM Modelen WHERE User_ID = :user_id AND (Leeftijd IS NULL OR Lengte IS NULL)");
+        $stmt->execute([':user_id' => $user_id]);
         // 3️⃣ Verwerk formuliergegevens
         $voornaam = trim($_POST['voornaam'] ?? '');
         $achternaam = trim($_POST['achternaam'] ?? '');

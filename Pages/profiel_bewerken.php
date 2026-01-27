@@ -173,22 +173,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Update of insert modelprofiel met beschrijving (zonder foto, want die blijft in Modelen)
+    // Alleen bestaand modelprofiel bijwerken (geen nieuw profiel automatisch aanmaken)
     if ($model['Profiel_ID']) {
-        // Update bestaand profiel (alleen beschrijving, foto blijft in Modelen)
         $update = "UPDATE Modelen SET Beschrijving = :beschrijving WHERE Profiel_ID = :profiel_id";
         $stmt = $conn->prepare($update);
         $stmt->execute([
             'beschrijving' => $beschrijving,
             'profiel_id' => $model['Profiel_ID']
-        ]);
-    } else {
-        // Maak nieuw profiel aan (zonder foto, want foto blijft in Modelen bij inschrijving)
-        $insert = "INSERT INTO Modelen (User_ID, Beschrijving, Status) VALUES (:user_id, :beschrijving, 'pending')";
-        $stmt = $conn->prepare($insert);
-        $stmt->execute([
-            'user_id' => $user_id,
-            'beschrijving' => $beschrijving
         ]);
     }
 

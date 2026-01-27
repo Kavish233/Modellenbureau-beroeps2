@@ -12,10 +12,10 @@ if (!isset($_SESSION['naam'])) {
     exit;
 }
 
-// Profielfoto rechtsboven in nav ophalen
+// Profielfoto en naam rechtsboven in nav ophalen
 $profielFoto = null;
 $email = $_SESSION['naam'];
-$sql = "SELECT ProfielFoto FROM USERS WHERE Email = :email";
+$sql = "SELECT ProfielFoto, naam FROM USERS WHERE Email = :email";
 $stmt = $conn->prepare($sql);
 $stmt->execute(['email' => $email]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);

@@ -15,11 +15,11 @@ if (!isset($_SESSION['naam'])) {
     exit;
 }
 
-// Haal user data op voor profielfoto en rol
+// Haal user data op voor profielfoto, naam en rol
 $profielFoto = null;
 $isDocent = false;
 $email = $_SESSION['naam'];
-$sql = "SELECT ProfielFoto, rol FROM USERS WHERE Email = :email";
+$sql = "SELECT ProfielFoto, naam, rol FROM USERS WHERE Email = :email";
 $stmt = $conn->prepare($sql);
 $stmt->execute(['email' => $email]);
 $user = $stmt->fetch();

@@ -65,7 +65,8 @@
         </div>
 
         <?php
-        $initial = strtoupper($user['naam'][0] ?? 'P'); // eerste letter van naam, anders 'P'
+        // Eerste letter van de naam voor in de profielcirkel
+        $initial = strtoupper($user['naam'][0] ?? 'P');
         ?>
 
         <!-- Desktop rechts -->
@@ -87,10 +88,10 @@
             <div class="hamburger" id="hamburger">☰</div>
             <a href="/beroeps/Modellenbureau/Pages/profiel_bewerken.php" style="text-decoration: none;">
                 <div class="profile-circle mobile-profile">
-                    <?php if (!empty($profielFoto)): ?>
-                        <img src="/beroeps/Modellenbureau/Pages/<?= htmlspecialchars($profielFoto) ?>" alt="Profielfoto">
+                    <?php if (!empty($user['ProfielFoto'])): ?>
+                        <img src="/beroeps/Modellenbureau/Pages/<?= htmlspecialchars($user['ProfielFoto']) ?>" alt="Profielfoto">
                     <?php else: ?>
-                        P
+                        <?= $initial ?>
                     <?php endif; ?>
                 </div>
             </a>

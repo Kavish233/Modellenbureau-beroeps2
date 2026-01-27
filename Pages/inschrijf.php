@@ -8,9 +8,9 @@ if (!isset($_SESSION['naam'])) {
     exit;
 }
 
-// Haal user data op voor profielfoto
+// Haal user data op voor profielfoto en naam
 $email = $_SESSION['naam'];
-$sql = "SELECT ProfielFoto FROM USERS WHERE Email = :email";
+$sql = "SELECT ProfielFoto, naam FROM USERS WHERE Email = :email";
 $stmt = $conn->prepare($sql);
 $stmt->execute(['email' => $email]);
 $user = $stmt->fetch();

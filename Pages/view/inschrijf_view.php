@@ -19,6 +19,11 @@
             <a href="modellen-overzicht.php">Modellen zoeken</a>
         </div>
 
+        <?php
+        // Eerste letter van de naam voor in de profielcirkel
+        $initial = strtoupper($user['naam'][0] ?? 'P');
+        ?>
+
         <!-- Desktop rechts -->
         <div class="nav-right">
             <a href="profiel_bewerken.php" style="text-decoration: none;">
@@ -26,7 +31,7 @@
                     <?php if (!empty($profielFoto)): ?>
                         <img src="/beroeps/Modellenbureau/Pages/<?= htmlspecialchars($profielFoto) ?>" alt="Profielfoto">
                     <?php else: ?>
-                        P
+                        <?= $initial ?>
                     <?php endif; ?>
                 </div>
             </a>
@@ -40,7 +45,7 @@
                     <?php if (!empty($profielFoto)): ?>
                         <img src="/beroeps/Modellenbureau/Pages/<?= htmlspecialchars($profielFoto) ?>" alt="Profielfoto">
                     <?php else: ?>
-                        P
+                        <?= $initial ?>
                     <?php endif; ?>
                 </div>
             </a>

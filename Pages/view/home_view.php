@@ -190,7 +190,8 @@
                     } else {
                         $fotoUrl = $uploadsPath . 'placeholder.jpg';
                     }
-                    $kaartNaam = $model['Beschrijving'] ?? 'Model';
+                    // Gebruik voornaam als die er is, anders beschrijving
+                    $kaartNaam = $model['Voornaam'] ?? ($model['Beschrijving'] ?? 'Model');
                     ?>
                     <div class="slide <?= $index === 0 ? 'active' : '' ?>">
                         <div class="model-tile">

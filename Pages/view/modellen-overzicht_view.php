@@ -86,8 +86,8 @@ $uploadsPath = "/beroeps/Modellenbureau/Pages/uploads/";
                     $fotoUrl = $uploadsPath . 'placeholder.jpg';
                 }
 
-                // Tekst onder foto (gebruik Beschrijving als "naam" zoals je voorbeeld)
-                $kaartNaam = $model['Beschrijving'] ?? 'Model';
+                // Tekst onder foto: eerst voornaam (nieuwe kolom), anders Beschrijving
+                $kaartNaam = $model['Voornaam'] ?? ($model['Beschrijving'] ?? 'Model');
                 ?>
 
                 <div class="model-tile">

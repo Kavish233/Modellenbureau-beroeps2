@@ -68,11 +68,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // 5️⃣ Voeg profiel toe aan Modelen tabel
+        // 5️⃣ Voeg profiel toe aan Modelen tabel (inclusief voornaam in nieuwe kolom)
         if (empty($melding)) {
             $stmt = $conn->prepare("
-                INSERT INTO Modelen (User_ID, Foto, Beschrijving, Leeftijd, Lengte, Opleiding, Status)
-                VALUES (:user_id, :foto, :beschrijving, :leeftijd, :lengte, :opleiding, 'pending')
+                INSERT INTO Modelen (User_ID, Foto, Beschrijving, Leeftijd, Lengte, Opleiding, Status, Voornaam)
+                VALUES (:user_id, :foto, :beschrijving, :leeftijd, :lengte, :opleiding, 'pending', :voornaam)
             ");
             $stmt->execute([
                 ':user_id' => $user_id,
@@ -80,7 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':beschrijving' => $beschrijving,
                 ':leeftijd' => $leeftijd,
                 ':lengte' => $lengte,
-                ':opleiding' => $opleiding
+                ':opleiding' => $opleiding,
+                ':voornaam' => $voornaam
             ]);
 
             // 6️⃣ Redirect naar home pagina na succes

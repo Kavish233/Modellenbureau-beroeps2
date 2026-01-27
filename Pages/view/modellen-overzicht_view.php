@@ -87,7 +87,7 @@ $uploadsPath = "/beroeps/Modellenbureau/Pages/uploads/";
                 }
 
                 // Tekst onder foto: eerst voornaam (nieuwe kolom), anders Beschrijving
-                $kaartNaam = $model['Voornaam'] ?? ($model['Beschrijving'] ?? 'Model');
+                $kaartNaam = $model['voornaam'] ?? ($model['Beschrijving'] ?? 'Model');
                 ?>
 
                 <div class="model-tile">

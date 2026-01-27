@@ -65,7 +65,7 @@
 
         <div class="detail-right">
             <div class="name-pill">
-                <?= htmlspecialchars($model['Beschrijving'] ?? 'Model') ?>
+                <?= htmlspecialchars($model['voornaam'] ?? 'Model') ?>
             </div>
 
             <div class="stats-box">

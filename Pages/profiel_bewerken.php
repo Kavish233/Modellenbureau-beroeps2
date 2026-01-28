@@ -43,6 +43,9 @@ if (!$model) {
     ];
 }
 
+// "Echt" modelprofiel = inschrijving compleet (leeftijd + lengte gezet)
+$hasFullModelProfile = !empty($model['Profiel_ID']) && $model['Leeftijd'] !== null && $model['Lengte'] !== null;
+
 $melding = "";
 $meldingType = ""; // 'ok' of 'err'
 
@@ -133,6 +136,9 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $naam = trim($_POST['naam'] ?? '');
     $beschrijving = trim($_POST['beschrijving'] ?? '');
+    $voornaam = trim($_POST['voornaam'] ?? '');
+    $leeftijd = isset($_POST['leeftijd']) ? (int)$_POST['leeftijd'] : null;
+    $lengte = isset($_POST['lengte']) ? (int)$_POST['lengte'] : null;
     
     // Update naam in USERS tabel (alleen als naam is ingevuld)
     if (!empty($naam)) {
@@ -173,8 +179,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Alleen bestaand modelprofiel bijwerken (geen nieuw profiel automatisch aanmaken)
-    if ($model['Profiel_ID']) {
+    // Model-foto upload (voor Modelen tabel) - alleen als er een volledig modelprofiel is
+    $modelFotoPath = $model['Foto'] ?? null; // behoud oude foto standaard
+    if ($hasFullModelProfile && isset($_FILES['model_foto']) && $_FILES['model_foto']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = __DIR__ . "/uploads/";
+
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+
+        $ext = pathinfo($_FILES['model_foto']['name'], PATHINFO_EXTENSION);
+        $fileName = uniqid('model_', true) . '.' . $ext;
+        $uploadPath = $uploadDir . $fileName;
+
+        if (move_uploaded_file($_FILES['model_foto']['tmp_name'], $uploadPath)) {
+            $modelFotoPath = "uploads/" . $fileName;
+        } else {
+            $melding = "Fout bij het uploaden van de model-foto.";
+            $meldingType = "err";
+        }
+    }
+
+    // Alleen bestaand (volledig) modelprofiel bijwerken (geen nieuw profiel automatisch aanmaken)
+    // Opleiding wordt hier bewust NIET aangepast: alleen tonen, niet wijzigbaar.
+    if ($hasFullModelProfile && empty($melding)) {
+        // Basic server-side sanity: leeftijd/lengte mogen niet negatief
+        if ($leeftijd !== null && $leeftijd < 0) $leeftijd = 0;
+        if ($lengte !== null && $lengte < 0) $lengte = 0;
+
+        $update = "UPDATE Modelen 
+                   SET Voornaam = :voornaam,
+                       Leeftijd = :leeftijd,
+                       Lengte = :lengte,
+                       Beschrijving = :beschrijving,
+                       Foto = :foto
+                   WHERE Profiel_ID = :profiel_id";
+        $stmt = $conn->prepare($update);
+        $stmt->execute([
+            'voornaam' => $voornaam,
+            'leeftijd' => $leeftijd,
+            'lengte' => $lengte,
+            'beschrijving' => $beschrijving,
+            'foto' => $modelFotoPath,
+            'profiel_id' => $model['Profiel_ID']
+        ]);
+    } elseif (!empty($model['Profiel_ID']) && empty($melding)) {
+        // Fallback: als er wel een (leeg) model-record bestaat, update alleen beschrijving
         $update = "UPDATE Modelen SET Beschrijving = :beschrijving WHERE Profiel_ID = :profiel_id";
         $stmt = $conn->prepare($update);
         $stmt->execute([
@@ -211,6 +261,9 @@ if (!$model) {
         'Status' => null
     ];
 }
+
+// Herbereken na refresh
+$hasFullModelProfile = !empty($model['Profiel_ID']) && $model['Leeftijd'] !== null && $model['Lengte'] !== null;
 
 // Bepaal of account gedeactiveerd is
 $isDeactivated = isset($model['Status']) && $model['Status'] === 'rejected';

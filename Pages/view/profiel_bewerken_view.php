@@ -106,10 +106,6 @@
             <h2 style="margin-top: 0; margin-bottom: 18px;">Profiel bewerken</h2>
             
             <form method="post" enctype="multipart/form-data">
-                <div class="field">
-                    <label>Naam</label>
-                    <input type="text" name="naam" class="input" value="<?= htmlspecialchars($user['naam'] ?? '') ?>" required>
-                </div>
 
                 <div class="field">
                     <label>Studentennummer</label>
@@ -120,8 +116,8 @@
                 <?php if ($hasFullModelProfile): ?>
                     <!-- Modelprofiel velden - alleen zichtbaar als je een volledig modelprofiel hebt -->
                     <div class="field">
-                        <label>Voornaam</label>
-                        <input type="text" name="voornaam" class="input" value="<?= htmlspecialchars($model['Voornaam'] ?? '') ?>">
+                        <label>naam</label>
+                        <input type="text" name="voornaam" class="input" value="<?= htmlspecialchars($model['voornaam'] ?? '') ?>">
                     </div>
 
                     <div class="field">

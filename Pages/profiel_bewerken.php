@@ -34,6 +34,7 @@ $model = $stmt->fetch();
 if (!$model) {
     $model = [
         'Profiel_ID' => null,
+        'Voornaam' => null,
         'Foto' => null,
         'Beschrijving' => '',
         'Leeftijd' => null,
@@ -58,6 +59,12 @@ if (isset($_GET['deactivated']) && $_GET['deactivated'] == '1') {
 // Toon melding als account is geactiveerd
 if (isset($_GET['activated']) && $_GET['activated'] == '1') {
     $melding = "✓ Je account is succesvol geactiveerd. Je modelprofiel is weer zichtbaar op de modellen-overzicht pagina.";
+    $meldingType = "ok";
+}
+
+// Toon melding als profiel is opgeslagen
+if (isset($_GET['saved']) && $_GET['saved'] == '1') {
+    $melding = "✓ Je profiel is succesvol opgeslagen.";
     $meldingType = "ok";
 }
 
@@ -137,8 +144,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $naam = trim($_POST['naam'] ?? '');
     $beschrijving = trim($_POST['beschrijving'] ?? '');
     $voornaam = trim($_POST['voornaam'] ?? '');
-    $leeftijd = isset($_POST['leeftijd']) ? (int)$_POST['leeftijd'] : null;
-    $lengte = isset($_POST['lengte']) ? (int)$_POST['lengte'] : null;
+    // Lege strings worden null, anders integer
+    $leeftijd = isset($_POST['leeftijd']) && $_POST['leeftijd'] !== '' ? (int)$_POST['leeftijd'] : null;
+    $lengte = isset($_POST['lengte']) && $_POST['lengte'] !== '' ? (int)$_POST['lengte'] : null;
     
     // Update naam in USERS tabel (alleen als naam is ingevuld)
     if (!empty($naam)) {
@@ -239,7 +247,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch();
     
-    header("Location: profiel_bewerken.php");
+    // Toon succesmelding als er geen foutmelding is
+    if (empty($melding)) {
+        header("Location: profiel_bewerken.php?saved=1");
+    } else {
+        header("Location: profiel_bewerken.php");
+    }
     exit;
 }
 
@@ -253,6 +266,7 @@ $model = $stmt->fetch();
 if (!$model) {
     $model = [
         'Profiel_ID' => null,
+        'Voornaam' => null,
         'Foto' => null,
         'Beschrijving' => '',
         'Leeftijd' => null,

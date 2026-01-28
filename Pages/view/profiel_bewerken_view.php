@@ -117,6 +117,41 @@
                     <small style="font-size: 11px; color: #666;">Studentennummer kan niet worden gewijzigd</small>
                 </div>
 
+                <?php if ($hasFullModelProfile): ?>
+                    <!-- Modelprofiel velden - alleen zichtbaar als je een volledig modelprofiel hebt -->
+                    <div class="field">
+                        <label>Voornaam</label>
+                        <input type="text" name="voornaam" class="input" value="<?= htmlspecialchars($model['Voornaam'] ?? '') ?>">
+                    </div>
+
+                    <div class="field">
+                        <label>Leeftijd</label>
+                        <input type="number" name="leeftijd" class="input" value="<?= htmlspecialchars($model['Leeftijd'] ?? '') ?>" min="0">
+                    </div>
+
+                    <div class="field">
+                        <label>Lengte (cm)</label>
+                        <input type="number" name="lengte" class="input" value="<?= htmlspecialchars($model['Lengte'] ?? '') ?>" min="0">
+                    </div>
+
+                    <div class="field">
+                        <label>Model-foto</label>
+                        <?php if (!empty($model['Foto'])): ?>
+                            <div style="margin-bottom: 10px;">
+                                <img src="/beroeps/Modellenbureau/Pages/<?= htmlspecialchars($model['Foto']) ?>" alt="Model foto" style="max-width: 200px; max-height: 200px; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                        <?php endif; ?>
+                        <input type="file" name="model_foto" accept="image/*" class="input">
+                        <small style="font-size: 11px; color: #666;">Upload een nieuwe model-foto (optioneel)</small>
+                    </div>
+
+                    <div class="field">
+                        <label>Opleiding</label>
+                        <input type="text" class="input" value="<?= htmlspecialchars($model['Opleiding'] ?? '') ?>" disabled style="background: #f0f0f0;">
+                        <small style="font-size: 11px; color: #666;">Opleiding kan niet worden gewijzigd</small>
+                    </div>
+                <?php endif; ?>
+
                 <div class="field">
                     <label>Beschrijving</label>
                     <textarea name="beschrijving" class="input" rows="4"><?= htmlspecialchars($model['Beschrijving'] ?? '') ?></textarea>

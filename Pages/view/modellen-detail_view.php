@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta charset="UTF-8">
     <title>Model detail</title>
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/main.css">
@@ -65,7 +66,7 @@
 
         <div class="detail-right">
             <div class="name-pill">
-                <?= htmlspecialchars($model['Beschrijving'] ?? 'Model') ?>
+                <?= htmlspecialchars($model['voornaam'] ?? 'Model') ?>
             </div>
 
             <div class="stats-box">

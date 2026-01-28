@@ -1,191 +1,271 @@
 /* =========================
-   Modellen zoeken - scoped CSS
-   (maakt de kaartjes exact zoals in je voorbeeld)
+   RESET & BASIS
    ========================= */
 
-/* Pagina achtergrond */
-html, body {
-    margin: 0;
-    padding: 0;
-    background: #B19145;
-    font-family: Arial, sans-serif;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
-/* Container */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #B19145;
+}
+
+/* =========================
+   HEADER & NAV (MOBILE FIRST)
+   ========================= */
+
+header {
+    background-color: #E3D6B4;
+    padding: 15px 20px;
+    position: relative;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Desktop-only onderdelen standaard UIT */
+.nav-left,
+.nav-right {
+    display: none;
+}
+
+/* =========================
+   MOBILE NAV
+   ========================= */
+
+.mobile-nav {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hamburger {
+    font-size: 28px;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Mobiel profiel */
+.mobile-profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #555;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    overflow: hidden;
+}
+
+.mobile-profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* =========================
+   MOBILE MENU
+   ========================= */
+
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #E3D6B4;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.mobile-menu a {
+    padding: 12px 20px;
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.mobile-menu a:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+
+.mobile-menu.active {
+    display: flex;
+}
+
+/* =========================
+   DESKTOP NAV
+   ========================= */
+
+@media (min-width: 769px) {
+
+    .mobile-nav,
+    .mobile-menu {
+        display: none;
+    }
+
+    .nav-left,
+    .nav-right {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-left a {
+        color: black;
+        text-decoration: none;
+        margin-right: 20px;
+        font-weight: 500;
+    }
+
+    .nav-left a:last-child {
+        margin-right: 0;
+    }
+
+    .nav-right .profile-circle {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: #555;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+    }
+
+    .nav-right .profile-circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+/* =========================
+   PAGINA BASIS
+   ========================= */
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 26px 30px 60px;
-    box-sizing: border-box;
+    padding: 20px 16px 50px;
 }
 
-/* Titel */
 .container h1 {
     margin: 0 0 18px 0;
     color: #fff;
-    font-size: 56px;
+    font-size: 40px;
     font-weight: 300;
 }
 
-/* Lege state */
-.container > p {
-    color: #fff;
-    font-size: 18px;
-    margin: 0;
-}
-
 /* =========================
-   GRID
+   GRID – MOBILE FIRST
    ========================= */
-.container .models-grid {
-    /* als main.css dit overschrijft, wint dit door !important */
-    display: grid !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    gap: 26px !important;
-    align-items: start !important;
+
+.models-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* mobiel */
+    gap: 18px;
 }
 
 /* tablet */
-@media (max-width: 1000px) {
-    .container .models-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+@media (min-width: 601px) {
+    .models-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
     }
 }
 
-/* mobiel */
-@media (max-width: 600px) {
-    .container {
-        padding: 18px 16px 50px;
+/* desktop */
+@media (min-width: 1000px) {
+    .models-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 26px;
     }
 
     .container h1 {
-        font-size: 40px;
-        margin-bottom: 14px;
-    }
-
-    .container .models-grid {
-        grid-template-columns: 1fr !important;
-        gap: 18px !important;
+        font-size: 56px;
     }
 }
 
 /* =========================
-   CARD RESET (tegen main.css)
+   MODEL CARD
    ========================= */
-.container .model-tile,
-.container .model-tile * {
-    box-sizing: border-box;
+
+.model-tile {
+    background: #E3D6B4;
+    border-radius: 16px;
+    padding: 14px;
+    text-align: center;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+    border: 1px solid rgba(0,0,0,0.10);
+    overflow: hidden;
 }
 
-/* Kaart */
-.container .model-tile {
-    background: #E3D6B4 !important;
-    border-radius: 16px !important;
-    padding: 14px !important;
-    text-align: center !important;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.18) !important;
-    border: 1px solid rgba(0,0,0,0.10) !important;
-    overflow: hidden; /* zorgt dat niks buiten de kaart valt */
+/* Afbeelding */
+.model-image {
+    background: #2f3e46;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 12px;
 }
 
-/* Afbeelding wrapper */
-.container .model-tile .model-image {
-    background: #2f3e46 !important;
-    border-radius: 12px !important;
-    overflow: hidden !important;
-    margin: 0 0 12px 0 !important;
-}
-
-/* Afbeelding zelf (force) */
-.container .model-tile .model-image img {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    height: 170px !important;
-    object-fit: cover !important;
-    border: 0 !important;
+.model-image img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
 }
 
 /* Naam */
-.container .model-tile .model-name {
-    margin: 8px 0 10px 0 !important;
-    font-size: 16px !important;
-    font-weight: 500 !important;
-    color: #000 !important;
-
-    /* als main.css rare text styles doet */
-    text-decoration: none !important;
+.model-name {
+    margin: 8px 0 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
 }
 
-/* Link als button (reset alle a-styles) */
-.container .model-tile a.model-btn {
-    display: block !important;
-    width: 100% !important;
-
-    background: #EFE7CF !important;
-    border-radius: 12px !important;
-    padding: 8px 0 !important;
-
-    color: #000 !important;
-    text-decoration: none !important;
-
-    border: 1px solid rgba(0,0,0,0.10) !important;
-    font-size: 14px !important;
-    font-weight: 400 !important;
-    line-height: 1.2 !important;
-
-    /* reset */
-    outline: none !important;
-}
-
-/* Hover */
-.container .model-tile a.model-btn:hover {
-    filter: brightness(0.96) !important;
-}
-
-/* Verwijder knop (alleen voor docenten) */
-.container .model-tile .model-btn-delete {
-    display: block !important;
-    width: 100% !important;
-    margin-top: 8px !important;
-
-    background: #D11B1B !important;
-    border-radius: 12px !important;
-    padding: 8px 0 !important;
-
-    color: #fff !important;
-    text-decoration: none !important;
-
-    border: 1px solid rgba(0,0,0,0.10) !important;
-    font-size: 14px !important;
-    font-weight: 400 !important;
-    line-height: 1.2 !important;
-    cursor: pointer !important;
-
-    /* reset */
-    outline: none !important;
-}
-
-/* Hover verwijder knop */
-.container .model-tile .model-btn-delete:hover {
-    filter: brightness(0.90) !important;
-}
-
-/* Success melding */
-.success-msg {
-    background: #f0f9f0;
-    border: 1px solid rgba(0,128,0,0.4);
-    color: #006600;
-    padding: 12px 16px;
-    border-radius: 8px;
-    margin-bottom: 18px;
+/* Knoppen */
+.model-btn {
+    display: block;
+    width: 100%;
+    background: #EFE7CF;
+    border-radius: 12px;
+    padding: 8px 0;
+    color: #000;
+    text-decoration: none;
+    border: 1px solid rgba(0,0,0,0.10);
     font-size: 14px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Mobiel: iets lagere foto */
-@media (max-width: 600px) {
-    .container .model-tile .model-image img {
-        height: 200px !important;
-    }
+.model-btn:hover {
+    filter: brightness(0.96);
+}
+
+/* Verwijderen knop */
+.model-btn-delete {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    background: #D11B1B;
+    border-radius: 12px;
+    padding: 8px 0;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.model-btn-delete:hover {
+    filter: brightness(0.9);
 }

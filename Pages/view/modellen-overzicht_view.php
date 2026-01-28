@@ -7,8 +7,9 @@ $uploadsPath = "/beroeps/Modellenbureau/Pages/uploads/";
 <head>
     <meta charset="UTF-8">
     <title>Modellen zoeken</title>
-    <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/main.css">
+
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/modellen-overzicht.css">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <script src="/beroeps/Modellenbureau/Script/menu.js" defer></script>
 </head>
 <body>
@@ -87,7 +88,7 @@ $uploadsPath = "/beroeps/Modellenbureau/Pages/uploads/";
                 }
 
                 // Tekst onder foto: eerst voornaam (nieuwe kolom), anders Beschrijving
-                $kaartNaam = $model['Voornaam'] ?? ($model['Beschrijving'] ?? 'Model');
+                $kaartNaam = $model['voornaam'] ?? ($model['Beschrijving'] ?? 'Model');
                 ?>
 
                 <div class="model-tile">

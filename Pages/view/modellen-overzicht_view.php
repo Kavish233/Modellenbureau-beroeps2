@@ -9,7 +9,7 @@ $uploadsPath = "/beroeps/Modellenbureau/Pages/uploads/";
     <title>Modellen zoeken</title>
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/main.css">
     <link rel="stylesheet" href="/beroeps/Modellenbureau/CSS/modellen-overzicht.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <script src="/beroeps/Modellenbureau/Script/menu.js" defer></script>
 </head>
 <body>
